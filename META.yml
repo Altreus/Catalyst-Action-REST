@@ -9,5 +9,12 @@ no_index:
     - inc
     - t
 requires: 
+  Catalyst: 5.7001
+  Class::Inspector: 1.13
+  Data::Serializer: 0.36
+  LWP::UserAgent: 2.033
+  Module::Pluggable::Object: 0
+  Params::Validate: 0.76
+  YAML::Syck: 0.67
   perl: 5.8.1
-version: 0.1
+version: 0.2
