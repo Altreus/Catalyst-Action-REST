@@ -14,8 +14,8 @@ use base 'Catalyst::Action';
 use Class::Inspector;
 use 5.8.1;
 
-my 
-$VERSION = '0.2';
+our
+$VERSION = '0.30';
 
 =head1 NAME
 
@@ -23,7 +23,9 @@ Catalyst::Action::REST - Automated REST Method Dispatching
 
 =head1 SYNOPSIS
 
-    sub foo :Local :ActionClass('REST') {}
+    sub foo :Local :ActionClass('REST') {
+      ... do setup for HTTP method specific handlers ...
+    }
 
     sub foo_GET { 
       ... do something for GET requests ...
@@ -44,9 +46,20 @@ the foo_GET method being dispatched.
 
 If a method is requested that is not implemented, this action will 
 return a status 405 (Method Not Found).  It will populate the "Allow" header 
-with the list of implemented request methods.
+with the list of implemented request methods.  You can override this behavior
+by implementing a custom 405 handler like so:
 
-It is likely that you really want to look at L<Catalyst::Controller::REST>.
+   sub foo_not_implemented {
+      ... handle not implemented methods ...
+   }
+
+If you do not provide an _OPTIONS subroutine, we will automatically respond
+with a 200 OK.  The "Allow" header will be populated with the list of
+implemented request methods.
+
+It is likely that you really want to look at L<Catalyst::Controller::REST>,
+which brings this class together with automatic Serialization of requests
+and responses.
 
 =head1 METHODS
 
@@ -58,21 +71,40 @@ This method overrides the default dispatch mechanism to the re-dispatching
 mechanism described above.
 
 =cut
+
 sub dispatch {
     my $self = shift;
-    my $c = shift;
+    my $c    = shift;
 
     my $controller = $self->class;
     my $method     = $self->name . "_" . uc( $c->request->method );
     if ( $controller->can($method) ) {
-        return $controller->$method($c, @{$c->req->args});
+        $c->execute( $self->class, $self, @{ $c->req->args } );
+        return $controller->$method( $c, @{ $c->req->args } );
     } else {
-        $self->_return_405($c);
-        return $c->execute( $self->class, $self, @{$c->req->args} );
+        if ( $c->request->method eq "OPTIONS" ) {
+            return $self->_return_options($c);
+        } else {
+            my $handle_ni = $self->name . "_not_implemented";
+            if ( $controller->can($handle_ni) ) {
+                return $controller->$handle_ni( $c, @{ $c->req->args } );
+            } else {
+                return $self->_return_not_implemented($c);
+            }
+        }
     }
 }
 
-sub _return_405 {
+sub _return_options {
+    my ( $self, $c ) = @_;
+
+    my @allowed = $self->_get_allowed_methods($c);
+    $c->response->content_type('text/plain');
+    $c->response->status(200);
+    $c->response->header( 'Allow' => \@allowed );
+}
+
+sub _get_allowed_methods {
     my ( $self, $c ) = @_;
 
     my $controller = $self->class;
@@ -84,6 +116,13 @@ sub _return_405 {
             push( @allowed, $1 );
         }
     }
+    return @allowed;
+}
+
+sub _return_not_implemented {
+    my ( $self, $c ) = @_;
+
+    my @allowed = $self->_get_allowed_methods($c);
     $c->response->content_type('text/plain');
     $c->response->status(405);
     $c->response->header( 'Allow' => \@allowed );
@@ -119,3 +158,4 @@ Daisuke Maki <daisuke@endeworks.jp>
 You may distribute this code under the same terms as Perl itself.
 
 =cut
+
