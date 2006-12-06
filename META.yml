@@ -19,4 +19,4 @@ requires:
   URI::Find: 0
   YAML::Syck: 0.67
   perl: 5.8.1
-version: 0.30
+version: 0.31
