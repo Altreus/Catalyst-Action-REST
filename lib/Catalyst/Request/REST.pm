@@ -1,6 +1,6 @@
 #
 # REST.pm
-# Created by: Adam Jacob, Marchex, <adam@marchex.com>
+# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 # Created on: 10/13/2006 03:54:33 PM PDT
 #
 # $Id: $
@@ -87,7 +87,6 @@ sub accepted_content_types {
         if $self->content_type;
 
     if ($self->method eq "GET" && $self->param('content-type')) {
-
         $types{ $self->param('content-type') } = 2;
     }
 

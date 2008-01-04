@@ -1,6 +1,6 @@
 #
 # Catlyst::Action::SerializeBase.pm
-# Created by: Adam Jacob, Marchex, <adam@marchex.com>
+# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 #
 # $Id$
 
@@ -36,20 +36,30 @@ sub _load_content_plugins {
         $self->_serialize_plugins( \@plugins );
     }
 
-    my $content_type = $c->request->preferred_content_type;
+    my $content_type = $c->request->preferred_content_type || '';
 
     # Finally, we load the class.  If you have a default serializer,
     # and we still don't have a content-type that exists in the map,
     # we'll use it.
     my $sclass = $search_path . "::";
     my $sarg;
-    my $map = $controller->config->{'serialize'}->{'map'};
+    my $map;
 
+    my $config;
+    
+    if ( exists $controller->config->{'serialize'} ) {
+        $c->log->info("Using deprecated configuration for Catalyst::Action::REST!");
+        $c->log->info("Please see perldoc Catalyst::Action::REST for the update guide");
+        $config = $controller->config->{'serialize'};
+    } else {
+        $config = $controller->config;
+    }
+    $map = $config->{'map'};
     # If we don't have a handler for our preferred content type, try
     # the default
     if ( ! exists $map->{$content_type} ) {
-        if( exists $controller->config->{'serialize'}->{'default'} ) {
-            $content_type = $controller->config->{'serialize'}->{'default'} ;
+        if( exists $config->{'default'} ) {
+            $content_type = $config->{'default'} ;
         } else {
             return $self->_unsupported_media_type($c, $content_type);
         }
@@ -84,8 +94,7 @@ sub _load_content_plugins {
         eval { require $load_class; };
         if ($@) {
             $c->log->error(
-                "Error loading $sclass for " . $content_type . ": $!" )
-              if $c->log->is_debug;
+                "Error loading $sclass for " . $content_type . ": $!" );
             return $self->_unsupported_media_type($c, $content_type);
         } else {
             $self->_loaded_plugins->{$sclass} = 1;

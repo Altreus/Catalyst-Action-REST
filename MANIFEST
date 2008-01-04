@@ -43,6 +43,7 @@ t/data-serializer.t
 t/json.t
 t/lib/Test/Rest.pm
 t/lib/Test/Serialize.pm
+t/lib/Test/Serialize/Controller/REST.pm
 t/lib/Test/Serialize/View/Simple.pm
 t/view.t
 t/xml-simple.t

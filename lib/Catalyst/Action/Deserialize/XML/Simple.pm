@@ -1,6 +1,6 @@
 #
 # Catlyst::Action::Deserialize::XML::Simple.pm
-# Created by: Adam Jacob, Marchex, <adam@marchex.com>
+# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 # Created on: 10/12/2006 03:00:32 PM PDT
 #
 # $Id$
@@ -20,7 +20,8 @@ sub execute {
         require XML::Simple;
     };
     if ($@) {
-        $c->log->debug("Could not load XML::Simple, refusing to deserialize: $@");
+        $c->log->debug("Could not load XML::Simple, refusing to deserialize: $@")
+            if $c->debug;
         return 0;
     }
 
@@ -41,7 +42,8 @@ sub execute {
         }
     } else {
         $c->log->debug(
-            'I would have deserialized, but there was nothing in the body!');
+            'I would have deserialized, but there was nothing in the body!')
+                if $c->debug;
     }
     return 1;
 }

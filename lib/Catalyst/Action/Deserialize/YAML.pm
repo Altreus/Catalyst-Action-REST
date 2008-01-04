@@ -1,6 +1,6 @@
 #
 # Catlyst::Action::Deserialize::YAML.pm
-# Created by: Adam Jacob, Marchex, <adam@marchex.com>
+# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 # Created on: 10/12/2006 03:00:32 PM PDT
 #
 # $Id$
@@ -21,7 +21,8 @@ sub execute {
     if ($body) {
         my $rdata;
         eval {
-            $rdata = LoadFile( $c->request->body );
+            my $body = $c->request->body;
+            $rdata = LoadFile( "$body" );
         };
         if ($@) {
             return $@;
@@ -29,7 +30,8 @@ sub execute {
         $c->request->data($rdata);
     } else {
         $c->log->debug(
-            'I would have deserialized, but there was nothing in the body!');
+            'I would have deserialized, but there was nothing in the body!')
+            if $c->debug;
     }
     return 1;
 }

@@ -1,6 +1,6 @@
 #
 # Catlyst::Action::Serialize::JSON.pm
-# Created by: Adam Jacob, Marchex, <adam@marchex.com>
+# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 # Created on: 10/12/2006 03:00:32 PM PDT
 #
 # $Id$
@@ -17,7 +17,11 @@ sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
 
-    my $stash_key = $controller->config->{'serialize'}->{'stash_key'} || 'rest';
+    my $stash_key = (
+            $controller->config->{'serialize'} ?
+                $controller->config->{'serialize'}->{'stash_key'} :
+                $controller->config->{'stash_key'} 
+        ) || 'rest';
     my $output;
     eval {
         $output = JSON::Syck::Dump($c->stash->{$stash_key});

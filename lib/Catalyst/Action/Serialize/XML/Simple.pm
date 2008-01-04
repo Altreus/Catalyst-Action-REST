@@ -1,6 +1,6 @@
 #
 # Catlyst::Action::Serialize::XML::Simple.pm
-# Created by: Adam Jacob, Marchex, <adam@marchex.com>
+# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 # Created on: 10/12/2006 03:00:32 PM PDT
 #
 # $Id$
@@ -20,12 +20,17 @@ sub execute {
         require XML::Simple
     };
     if ($@) {
-        $c->log->debug("Could not load XML::Serializer, refusing to serialize: $@");
+        $c->log->debug("Could not load XML::Serializer, refusing to serialize: $@")
+            if $c->debug;
         return 0;
     }
     my $xs = XML::Simple->new(ForceArray => 0,);
 
-    my $stash_key = $controller->config->{'serialize'}->{'stash_key'} || 'rest';
+    my $stash_key = (
+            $controller->config->{'serialize'} ?
+                $controller->config->{'serialize'}->{'stash_key'} :
+                $controller->config->{'stash_key'} 
+        ) || 'rest';
     my $output;
     eval {
         $output = $xs->XMLout({ data => $c->stash->{$stash_key} });

@@ -1,6 +1,6 @@
 #
 # Catalyst::Action::Deserialize::Data::Serializer.pm
-# Created by: Adam Jacob, Marchex, <adam@marchex.com>
+# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 # Created on: 10/12/2006 03:00:32 PM PDT
 #
 # $Id$
@@ -24,7 +24,8 @@ sub execute {
         require $sp
     };
     if ($@) {
-        $c->log->debug("Could not load $serializer, refusing to serialize: $@");
+        $c->log->debug("Could not load $serializer, refusing to serialize: $@")
+            if $c->debug;
         return 0;
     }
     my $body = $c->request->body;
@@ -48,7 +49,8 @@ sub execute {
         $c->request->data($rdata);
     } else {
         $c->log->debug(
-            'I would have deserialized, but there was nothing in the body!');
+            'I would have deserialized, but there was nothing in the body!')
+                if $c->debug;
     }
     return 1;
 }

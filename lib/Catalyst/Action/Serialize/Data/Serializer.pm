@@ -1,6 +1,6 @@
 #
 # Catalyst::Action::Serialize::Data::Serializer
-# Created by: Adam Jacob, Marchex, <adam@marchex.com>
+# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 #
 # $Id$
 
@@ -16,7 +16,11 @@ sub execute {
     my $self = shift;
     my ( $controller, $c, $serializer ) = @_;
 
-    my $stash_key = $controller->config->{'serialize'}->{'stash_key'} || 'rest';
+    my $stash_key = (
+            $controller->config->{'serialize'} ?
+                $controller->config->{'serialize'}->{'stash_key'} :
+                $controller->config->{'stash_key'} 
+        ) || 'rest';
     my $sp = $serializer;
     $sp =~ s/::/\//g;
     $sp .= ".pm";
@@ -24,7 +28,7 @@ sub execute {
         require $sp
     };
     if ($@) {
-        $c->log->debug("Could not load $serializer, refusing to serialize: $@");
+        $c->log->info("Could not load $serializer, refusing to serialize: $@");
         return 0;
     }
     my $dso = Data::Serializer->new( serializer => $serializer );

@@ -175,7 +175,7 @@ response if an attempt to use an unsupported content-type is made.  You
 can ensure that something is always returned by setting the C<default>
 config option:
 
-   __PACKAGE__->config->{'serialize'}->{'default'} = 'text/x-yaml';
+   __PACKAGE__->config->{'default'} = 'text/x-yaml';
 
 Would make it always fall back to the serializer plugin defined for text/x-yaml.
 
@@ -208,12 +208,11 @@ such require you pass the current context ($c) as the first argument.
 use strict;
 use warnings;
 use base 'Catalyst::Controller';
-use Params::Validate qw(:all);
+use Params::Validate qw(SCALAR OBJECT);
 
 __PACKAGE__->mk_accessors(qw(serialize));
 
 __PACKAGE__->config(
-    serialize => {
         'stash_key' => 'rest',
         'map'       => {
             'text/html'          => 'YAML::HTML',
@@ -228,7 +227,6 @@ __PACKAGE__->config(
             'text/x-config-general' => [ 'Data::Serializer', 'Config::General' ],
             'text/x-php-serialization' => [ 'Data::Serializer', 'PHP::Serialization' ],
         },
-    }
 );
 
 sub begin : ActionClass('Deserialize') {
@@ -255,7 +253,7 @@ Example:
 sub status_ok {
     my $self = shift;
     my $c    = shift;
-    my %p    = validate( @_, { entity => 1, }, );
+    my %p    = Params::Validate::validate( @_, { entity => 1, }, );
 
     $c->response->status(200);
     $self->_set_entity( $c, $p{'entity'} );
@@ -285,7 +283,7 @@ This is probably what you want for most PUT requests.
 sub status_created {
     my $self = shift;
     my $c    = shift;
-    my %p    = validate(
+    my %p    = Params::Validate::validate(
         @_,
         {
             location => { type     => SCALAR | OBJECT },
@@ -323,7 +321,7 @@ Example:
 sub status_accepted {
     my $self = shift;
     my $c    = shift;
-    my %p    = validate( @_, { entity => 1, }, );
+    my %p    = Params::Validate::validate( @_, { entity => 1, }, );
 
     $c->response->status(202);
     $self->_set_entity( $c, $p{'entity'} );
@@ -348,10 +346,10 @@ Example:
 sub status_bad_request {
     my $self = shift;
     my $c    = shift;
-    my %p    = validate( @_, { message => { type => SCALAR }, }, );
+    my %p    = Params::Validate::validate( @_, { message => { type => SCALAR }, }, );
 
     $c->response->status(400);
-    $c->log->debug( "Status Bad Request: " . $p{'message'} );
+    $c->log->debug( "Status Bad Request: " . $p{'message'} ) if $c->debug;
     $self->_set_entity( $c, { error => $p{'message'} } );
     return 1;
 }
@@ -374,10 +372,10 @@ Example:
 sub status_not_found {
     my $self = shift;
     my $c    = shift;
-    my %p    = validate( @_, { message => { type => SCALAR }, }, );
+    my %p    = Params::Validate::validate( @_, { message => { type => SCALAR }, }, );
 
     $c->response->status(404);
-    $c->log->debug( "Status Not Found: " . $p{'message'} );
+    $c->log->debug( "Status Not Found: " . $p{'message'} ) if $c->debug;
     $self->_set_entity( $c, { error => $p{'message'} } );
     return 1;
 }
@@ -387,7 +385,7 @@ sub _set_entity {
     my $c      = shift;
     my $entity = shift;
     if ( defined($entity) ) {
-        $c->stash->{ $self->config->{'serialize'}->{'stash_key'} } = $entity;
+        $c->stash->{ $self->{'stash_key'} } = $entity;
     }
     return 1;
 }

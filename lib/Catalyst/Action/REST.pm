@@ -1,6 +1,6 @@
 #
 # REST.pm
-# Created by: Adam Jacob, Marchex, <adam@marchex.com>
+# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
 # Created on: 10/12/2006 03:00:32 PM PDT
 #
 # $Id$
@@ -12,11 +12,12 @@ use warnings;
 
 use base 'Catalyst::Action';
 use Class::Inspector;
+use Catalyst;
 use Catalyst::Request::REST;
 use 5.8.1;
 
 our
-   $VERSION = '0.50';
+   $VERSION = '0.60';
 
 # This is wrong in several ways. First, there's no guarantee that
 # Catalyst.pm has not been subclassed. Two, there's no guarantee that
