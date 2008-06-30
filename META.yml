@@ -1,8 +1,9 @@
 --- 
 abstract: Automated REST Method Dispatching
-author: Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
+author: 
+  - Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
 distribution_type: module
-generated_by: Module::Install version 0.65
+generated_by: Module::Install version 0.68
 license: perl
 meta-spec: 
   url: http://module-build.sourceforge.net/META-spec-v1.3.html
@@ -23,4 +24,4 @@ requires:
   URI::Find: 0
   YAML::Syck: 0.67
   perl: 5.8.1
-version: 0.60
+version: 0.61

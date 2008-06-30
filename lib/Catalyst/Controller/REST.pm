@@ -1,5 +1,7 @@
 package Catalyst::Controller::REST;
 
+our $VERSION = 0.61;
+
 =head1 NAME
 
 Catalyst::Controller::REST - A RESTful controller 
@@ -218,6 +220,7 @@ __PACKAGE__->config(
             'text/html'          => 'YAML::HTML',
             'text/xml'           => 'XML::Simple',
             'text/x-yaml'        => 'YAML',
+            'application/json'   => 'JSON',
             'text/x-json'        => 'JSON',
             'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
             'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
@@ -415,6 +418,7 @@ This class provides a default configuration for Serialization.  It is currently:
             'text/html'          => 'YAML::HTML',
             'text/xml'           => 'XML::Simple',
             'text/x-yaml'        => 'YAML',
+            'application/json'   => 'JSON',
             'text/x-json'        => 'JSON',
             'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
             'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
