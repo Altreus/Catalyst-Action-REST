@@ -1,3 +1,4 @@
+Catalyst-Action-REST-undef.tar.gz
 Changelog
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
@@ -30,6 +31,7 @@ lib/Catalyst/Request/REST.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml
+pm_to_blib
 README
 t/broken/Catalyst/Action/Deserialize/Broken.pm
 t/broken/Catalyst/Action/Serialize/Broken.pm
