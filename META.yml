@@ -3,7 +3,7 @@ abstract: 'Automated REST Method Dispatching'
 author:
   - 'Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway'
 distribution_type: module
-generated_by: 'Module::Install version 0.76'
+generated_by: 'Module::Install version 0.77'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -23,7 +23,7 @@ requires:
   Params::Validate: 0.76
   URI::Find: 0
   YAML::Syck: 0.67
-  perl: 5.8
+  perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.63
+version: 0.64
