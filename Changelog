@@ -1,5 +1,7 @@
-Wed Aug 13 08:55:00 PST 2008 (jshirley) - Release 0.64
-  New dist to fix issue with Module::Install
+Wed Aug 20 10:37:00 PST 2008 (jshirley) - Release 0.65
+  Fixed tests to work without JSON being installed
+  More test cleanup
+  Thanks to jgoulah for getting this release passing
 
 Wed Jul 09 11:16:00 PST 2008 (jshirley) - Release 0.63
   Changing from JSON::Syck to JSON/JSON::XS
