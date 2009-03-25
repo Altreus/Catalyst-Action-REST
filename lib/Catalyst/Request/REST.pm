@@ -10,9 +10,20 @@ package Catalyst::Request::REST;
 use strict;
 use warnings;
 
-use base 'Catalyst::Request';
+use base qw/Catalyst::Request Class::Accessor::Fast/;
 use HTTP::Headers::Util qw(split_header_words);
 
+sub _insert_self_into {
+  my ($class, $app) = @_;
+  my $req_class = $app->request_class;
+  return if $req_class->isa($class);
+  if ($req_class eq 'Catalyst::Request') {
+    $app->request_class($class);
+  } else {
+    die "$app has a custom request class $req_class, "
+      . "which is not a $class; see Catalyst::Request::REST";
+  }
+}
 
 =head1 NAME
 
@@ -32,10 +43,13 @@ This is a subclass of C<Catalyst::Request> that adds a few methods to
 the request object to faciliate writing REST-y code. Currently, these
 methods are all related to the content types accepted by the client.
 
+Note that if you have a custom request class in your application, and it does
+not inherit from C<Catalyst::Request::REST>, your application will fail with an
+error indicating a conflict the first time it tries to use
+C<Catalyst::Request::REST>'s functionality.  To fix this error, make sure your
+custom request class inherits from C<Catalyst::Request::REST>.
 
 =head1 METHODS
-
-=over 4 data
 
 If the request went through the Deserializer action, this method will
 returned the deserialized data structure.
@@ -43,6 +57,8 @@ returned the deserialized data structure.
 =cut
 
 __PACKAGE__->mk_accessors(qw(data accept_only));
+
+=over 4 
 
 =item accepted_content_types
 
@@ -141,9 +157,15 @@ sub accepts {
     return grep { $_ eq $type } @{ $self->accepted_content_types };
 }
 
+=back
+
 =head1 AUTHOR
 
 Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
+
+=head1 MAINTAINER
+
+J. Shirley <jshirley@cpan.org>
 
 =head1 LICENSE
 

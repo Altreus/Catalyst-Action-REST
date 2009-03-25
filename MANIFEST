@@ -41,6 +41,9 @@ t/catalyst-action-serialize.t
 t/catalyst-request-rest.t
 t/data-serializer.t
 t/json.t
+t/lib/Test/Catalyst/Action/REST.pm
+t/lib/Test/Catalyst/Action/REST/Controller/Deserialize.pm
+t/lib/Test/Catalyst/Action/REST/Controller/Serialize.pm
 t/lib/Test/Rest.pm
 t/lib/Test/Serialize.pm
 t/lib/Test/Serialize/Controller/REST.pm

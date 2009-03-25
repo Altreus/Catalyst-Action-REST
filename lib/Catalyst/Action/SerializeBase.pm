@@ -13,9 +13,16 @@ use base 'Catalyst::Action';
 use Module::Pluggable::Object;
 use Data::Dump qw(dump);
 use Catalyst::Request::REST;
+use Catalyst::Utils ();
 
-Catalyst->request_class('Catalyst::Request::REST')
-    unless Catalyst->request_class->isa('Catalyst::Request::REST');
+sub new {
+  my $class  = shift;
+  my $config = shift;
+  Catalyst::Request::REST->_insert_self_into(
+    Catalyst::Utils::class2appclass($config->{class})
+  );
+  return $class->SUPER::new($config, @_);
+}
 
 __PACKAGE__->mk_accessors(qw(_serialize_plugins _loaded_plugins));
 
@@ -45,26 +52,35 @@ sub _load_content_plugins {
 
     my $config;
     
-    if ( exists $controller->config->{'serialize'} ) {
+    if ( exists $controller->{'serialize'} ) {
         $c->log->info("Using deprecated configuration for Catalyst::Action::REST!");
         $c->log->info("Please see perldoc Catalyst::Action::REST for the update guide");
-        $config = $controller->config->{'serialize'};
+        $config = $controller->{'serialize'};
     } else {
-        $config = $controller->config;
+        $config = $controller;
     }
     $map = $config->{'map'};
-    # If we don't have a handler for our preferred content type, try
-    # the default
 
-    my ($content_type) = grep { $map->{$_} } @{$c->request->accepted_content_types};
-
-    unless ( defined $content_type ) {
-        if( exists $config->{'default'} ) {
-            $content_type = $config->{'default'} ;
-        } else {
-            return $self->_unsupported_media_type($c, $content_type);
-        }
+    # pick preferred content type
+    my @accepted_types; # priority order, best first
+    # give top priority to content type specified by stash, if any
+    my $content_type_stash_key = $config->{content_type_stash_key};
+    if ($content_type_stash_key
+        and my $stashed = $c->stash->{$content_type_stash_key}
+    ) {
+        # convert to array if not already a ref
+        $stashed = [ $stashed ] if not ref $stashed;
+        push @accepted_types, @$stashed;
     }
+    # then content types requested by caller
+    push @accepted_types, @{ $c->request->accepted_content_types };
+    # then the default
+    push @accepted_types, $config->{'default'} if $config->{'default'};
+    # pick the best match that we have a serializer mapping for
+    my ($content_type) = grep { $map->{$_} } @accepted_types;
+
+    return $self->_unsupported_media_type($c, $content_type)
+        if not $content_type;
 
     # carp about old text/x-json
     if ($content_type eq 'text/x-json') {

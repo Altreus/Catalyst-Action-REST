@@ -18,13 +18,14 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.66';
+our $VERSION = '0.67_01';
 
-# This is wrong in several ways. First, there's no guarantee that
-# Catalyst.pm has not been subclassed. Two, there's no guarantee that
-# the user isn't already using their request subclass.
-Catalyst->request_class('Catalyst::Request::REST')
-  unless Catalyst->request_class->isa('Catalyst::Request::REST');
+sub new {
+  my $class  = shift;
+  my $config = shift;
+  Catalyst::Request::REST->_insert_self_into($config->{class});
+  return $class->SUPER::new($config, @_);
+}
 
 =head1 NAME
 
@@ -154,6 +155,26 @@ You likely want to look at L<Catalyst::Controller::REST>, which implements
 a sensible set of defaults for a controller doing REST.
 
 L<Catalyst::Action::Serialize>, L<Catalyst::Action::Deserialize>
+
+=head1 TROUBLESHOOTING
+
+=over 4
+
+=item Q: I'm getting a "415 Unsupported Media Type" error. What gives?!
+
+A:  Most likely, you haven't set Content-type equal to "application/json", or one of the 
+accepted return formats.  You can do this by setting it in your query string thusly:
+?content-type=application%2Fjson (where %2F == / uri escaped). 
+
+**NOTE** Apache will refuse %2F unless configured otherise.
+Make sure AllowEncodedSlashes On is in your httpd.conf file in order for this to run smoothly.
+
+=cut
+
+=cut
+
+
+
 
 =head1 MAINTAINER
 
