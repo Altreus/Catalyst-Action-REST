@@ -16,7 +16,6 @@ no_index:
 requires:
   Catalyst::Runtime: 5.7001
   Class::Inspector: 1.13
-  Data::Dump: 0
   Data::Serializer: 0.36
   LWP::UserAgent: 2.033
   Module::Pluggable::Object: 0
@@ -26,4 +25,4 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.67
+version: 0.68

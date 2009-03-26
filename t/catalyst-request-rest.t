@@ -174,7 +174,7 @@ use HTTP::Headers;
     'Request::REST took over for Request');
 
   $test->request_class('Some::Other::Class');
-  eval { $test->setup };
+  eval { $test->setup_finished(0); $test->setup };
   like $@, qr/$test has a custom request class Some::Other::Class/;
 
   {
@@ -182,7 +182,7 @@ use HTTP::Headers;
     use base 'Catalyst::Request::REST';
   }
   $test->request_class('My::Request');
-  eval { $test->setup };
+  eval { $test->setup_finished(0); $test->setup };
   is $@, '', 'no error from Request::REST subclass';
 }
 

@@ -13,16 +13,11 @@ requires('LWP::UserAgent'            => '2.033');
 requires('Data::Serializer'          => '0.36');
 requires('Class::Inspector'          => '1.13');
 requires('URI::Find'                 => undef);
-requires('Data::Dump'                => undef);
 
 feature 'JSON (application/json) support',
     -default   => 0,
     'JSON'     => '2.12';
     'JSON::XS' => '2.2222';
-
-feature 'Data::Denter (text/x-data-denter) support',
-    -default => 0,
-    'Data::Denter' => undef;
 
 feature 'Data::Taxi (text/x-data-taxi) support',
     -default => 0,
