@@ -17,9 +17,7 @@ use Catalyst::Utils ();
 sub new {
   my $class  = shift;
   my $config = shift;
-  Catalyst::Request::REST->_insert_self_into(
-    Catalyst::Utils::class2appclass($config->{class})
-  );
+  Catalyst::Request::REST->_insert_self_into( $config->{class} );
   return $class->SUPER::new($config, @_);
 }
 
@@ -55,6 +53,9 @@ sub _load_content_plugins {
         $c->log->info("Using deprecated configuration for Catalyst::Action::REST!");
         $c->log->info("Please see perldoc Catalyst::Action::REST for the update guide");
         $config = $controller->{'serialize'};
+        # if they're using the deprecated config, they may be expecting a
+        # default mapping too.
+        $config->{map} ||= $controller->{map};
     } else {
         $config = $controller;
     }
