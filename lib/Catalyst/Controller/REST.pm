@@ -1,6 +1,6 @@
 package Catalyst::Controller::REST;
 
-our $VERSION = '0.70';
+our $VERSION = '0.71';
 
 =head1 NAME
 
@@ -217,7 +217,6 @@ use Params::Validate qw(SCALAR OBJECT);
 __PACKAGE__->mk_accessors(qw(serialize));
 
 __PACKAGE__->config(
-    'default_view' => 'REST',
     'stash_key' => 'rest',
     'map'       => {
         'text/html'          => 'YAML::HTML',
@@ -236,6 +235,8 @@ __PACKAGE__->config(
 );
 
 sub begin : ActionClass('Deserialize') { }
+
+sub end : ActionClass('Serialize') { }
 
 =item status_ok
 

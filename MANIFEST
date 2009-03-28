@@ -38,11 +38,13 @@ t/catalyst-action-rest.t
 t/catalyst-action-serialize-accept.t
 t/catalyst-action-serialize-query.t
 t/catalyst-action-serialize.t
+t/catalyst-controller-rest.t
 t/catalyst-request-rest.t
 t/data-serializer.t
 t/json.t
 t/lib/Test/Catalyst/Action/REST.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Deserialize.pm
+t/lib/Test/Catalyst/Action/REST/Controller/REST.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Serialize.pm
 t/lib/Test/Rest.pm
 t/lib/Test/Serialize.pm
