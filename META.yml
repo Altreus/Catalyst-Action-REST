@@ -2,8 +2,12 @@
 abstract: 'Automated REST Method Dispatching'
 author:
   - 'Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway'
+build_requires:
+  ExtUtils::MakeMaker: 6.42
+configure_requires:
+  ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.77'
+generated_by: 'Module::Install version 0.91'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -25,4 +29,5 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-version: 0.71
+  repository: http://github.com/hdp/catalyst-action-rest
+version: 0.72
