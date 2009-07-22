@@ -22,6 +22,7 @@ requires:
   Class::Inspector: 1.13
   Data::Serializer: 0.36
   LWP::UserAgent: 2.033
+  MRO::Compat: 0.10
   Module::Pluggable::Object: 0
   Params::Validate: 0.76
   URI::Find: 0
@@ -29,5 +30,5 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-  repository: http://github.com/hdp/catalyst-action-rest
-version: 0.73
+  repository: http://github.com/bobtfish/catalyst-action-rest
+version: 0.74
