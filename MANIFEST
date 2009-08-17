@@ -20,6 +20,7 @@ lib/Catalyst/Action/REST.pm
 lib/Catalyst/Action/Serialize.pm
 lib/Catalyst/Action/Serialize/Data/Serializer.pm
 lib/Catalyst/Action/Serialize/JSON.pm
+lib/Catalyst/Action/Serialize/JSON/XS.pm
 lib/Catalyst/Action/Serialize/View.pm
 lib/Catalyst/Action/Serialize/XML/Simple.pm
 lib/Catalyst/Action/Serialize/YAML.pm
