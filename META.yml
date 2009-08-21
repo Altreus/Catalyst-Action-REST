@@ -31,4 +31,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: http://github.com/bobtfish/catalyst-action-rest
-version: 0.75
+version: 0.76
