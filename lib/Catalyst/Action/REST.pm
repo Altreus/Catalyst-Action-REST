@@ -17,7 +17,7 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.76';
+our $VERSION = '0.77';
 $VERSION = eval $VERSION;
 
 sub new {
@@ -41,15 +41,18 @@ Catalyst::Action::REST - Automated REST Method Dispatching
       ... do something for GET requests ...
     }
 
-    sub foo_PUT {
-      ... do somethign for PUT requests ...
+    # alternatively use an Action
+    sub foo_PUT : Action {
+      ... do something for PUT requests ...
     }
 
 =head1 DESCRIPTION
 
 This Action handles doing automatic method dispatching for REST requests.  It
 takes a normal Catalyst action, and changes the dispatch to append an
-underscore and method name.
+underscore and method name.  First it will try dispatching to an action with
+the generated name, and failing that it will try to dispatch to a regular
+method.
 
 For example, in the synopsis above, calling GET on "/foo" would result in
 the foo_GET method being dispatched.
@@ -95,7 +98,10 @@ sub dispatch {
     my ($code, $name);
 
     # Common case, for foo_GET etc
-    if ($code = $controller->can($rest_method)) {
+    if ( $code = $controller->action_for($rest_method) ) {
+        $c->execute( $self->class, $self, @{ $c->req->args } );
+        return $c->forward( $code,  $c->req->args );
+     } elsif ($code = $controller->can($rest_method)) {
         # Exceute normal action
         $c->execute( $self->class, $self, @{ $c->req->args } );
         $name = $rest_method;
@@ -186,6 +192,8 @@ for this to run smoothly.
 =back
 
 =head1 CONTRIBUTORS
+
+Arthur Axel "fREW" Schmidt <frioux@gmail.com>
 
 Christopher Laco
 
