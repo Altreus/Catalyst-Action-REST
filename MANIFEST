@@ -35,7 +35,6 @@ README
 t/broken/Catalyst/Action/Deserialize/Broken.pm
 t/broken/Catalyst/Action/Serialize/Broken.pm
 t/catalyst-action-deserialize.t
-t/catalyst-action-rest-action-dispatch.t
 t/catalyst-action-rest.t
 t/catalyst-action-serialize-accept.t
 t/catalyst-action-serialize-query.t
@@ -45,9 +44,7 @@ t/catalyst-request-rest.t
 t/data-serializer.t
 t/isa.t
 t/json.t
-t/lib/Test/Action/Class.pm
 t/lib/Test/Catalyst/Action/REST.pm
-t/lib/Test/Catalyst/Action/REST/Controller/Actions.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Deserialize.pm
 t/lib/Test/Catalyst/Action/REST/Controller/REST.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Root.pm
