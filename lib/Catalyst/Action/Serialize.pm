@@ -32,7 +32,7 @@ sub execute {
             $c->log->info("Could not find a serializer for $content_type");
         } else {
             $c->log->info(
-                "Could not find a serializer for an empty content type");
+                "Could not find a serializer for an empty content-type");
         }
         return 1;
     }
@@ -137,15 +137,12 @@ a sensible set of defaults for doing a REST controller.
 
 L<Catalyst::Action::Deserialize>, L<Catalyst::Action::REST>
 
-=head1 AUTHOR
+=head1 AUTHORS
 
-Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
-
-Marchex, Inc. paid me while I developed this module.  (http://www.marchex.com)
+See L<Catalyst::Action::REST> for authors.
 
 =head1 LICENSE
 
 You may distribute this code under the same terms as Perl itself.
 
 =cut
-
