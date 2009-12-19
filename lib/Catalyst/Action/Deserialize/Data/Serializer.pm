@@ -1,16 +1,9 @@
-#
-# Catalyst::Action::Deserialize::Data::Serializer.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/12/2006 03:00:32 PM PDT
-#
-# $Id$
-
 package Catalyst::Action::Deserialize::Data::Serializer;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 use Data::Serializer;
 
 sub execute {

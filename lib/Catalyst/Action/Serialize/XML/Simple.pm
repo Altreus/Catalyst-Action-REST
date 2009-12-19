@@ -1,16 +1,9 @@
-#
-# Catlyst::Action::Serialize::XML::Simple.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/12/2006 03:00:32 PM PDT
-#
-# $Id$
-
 package Catalyst::Action::Serialize::XML::Simple;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 
 sub execute {
     my $self = shift;
@@ -22,7 +15,7 @@ sub execute {
     if ($@) {
         $c->log->debug("Could not load XML::Serializer, refusing to serialize: $@")
             if $c->debug;
-        return 0;
+        return;
     }
     my $xs = XML::Simple->new(ForceArray => 0,);
 
@@ -31,13 +24,7 @@ sub execute {
                 $controller->{'serialize'}->{'stash_key'} :
                 $controller->{'stash_key'} 
         ) || 'rest';
-    my $output;
-    eval {
-        $output = $xs->XMLout({ data => $c->stash->{$stash_key} });
-    };
-    if ($@) {
-        return $@;
-    }
+    my $output = $xs->XMLout({ data => $c->stash->{$stash_key} });
     $c->response->output( $output );
     return 1;
 }

@@ -1,16 +1,9 @@
-#
-# Catlyst::Action::Deserialize::JSON.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/12/2006 03:00:32 PM PDT
-#
-# $Id$
-
 package Catalyst::Action::Deserialize::JSON;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 use JSON qw( decode_json );
 
 sub execute {

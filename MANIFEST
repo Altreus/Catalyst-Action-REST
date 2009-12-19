@@ -10,7 +10,7 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-inc/Moose.pm
+inc/Test/More.pm
 lib/Catalyst/Action/Deserialize.pm
 lib/Catalyst/Action/Deserialize/Data/Serializer.pm
 lib/Catalyst/Action/Deserialize/JSON.pm
@@ -29,6 +29,7 @@ lib/Catalyst/Action/Serialize/YAML/HTML.pm
 lib/Catalyst/Action/SerializeBase.pm
 lib/Catalyst/Controller/REST.pm
 lib/Catalyst/Request/REST.pm
+lib/Catalyst/TraitFor/Request/REST.pm
 Makefile.PL
 MANIFEST			This list of files
 META.yml
@@ -56,6 +57,7 @@ t/lib/Test/Catalyst/Action/REST/Controller/Serialize.pm
 t/lib/Test/Rest.pm
 t/lib/Test/Serialize.pm
 t/lib/Test/Serialize/Controller/REST.pm
+t/lib/Test/Serialize/View/Awful.pm
 t/lib/Test/Serialize/View/Simple.pm
 t/pod.t
 t/view.t

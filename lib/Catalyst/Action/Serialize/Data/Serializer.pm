@@ -1,15 +1,9 @@
-#
-# Catalyst::Action::Serialize::Data::Serializer
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-#
-# $Id$
-
 package Catalyst::Action::Serialize::Data::Serializer;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 use Data::Serializer;
 
 sub execute {
@@ -29,16 +23,10 @@ sub execute {
     };
     if ($@) {
         $c->log->info("Could not load $serializer, refusing to serialize: $@");
-        return 0;
+        return;
     }
     my $dso = Data::Serializer->new( serializer => $serializer );
-    my $data;
-    eval {
-       $data = $dso->raw_serialize($c->stash->{$stash_key});
-    };
-    if ($@) {
-        return $@;
-    } 
+    my $data = $dso->raw_serialize($c->stash->{$stash_key});
     $c->response->output( $data );
     return 1;
 }

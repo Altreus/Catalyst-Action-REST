@@ -1,23 +1,16 @@
-#
-# REST.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/12/2006 03:00:32 PM PDT
-#
-# $Id$
-
 package Catalyst::Action::REST;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 use Class::Inspector;
 use Catalyst::Request::REST;
 use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.79';
+our $VERSION = '0.80';
 $VERSION = eval $VERSION;
 
 sub new {
@@ -132,14 +125,8 @@ sub dispatch {
 sub _get_allowed_methods {
     my ( $self, $controller, $c, $name ) = @_;
     my $class = ref($controller) ? ref($controller) : $controller;
-    my $methods    = Class::Inspector->methods($class);
-    my @allowed;
-    foreach my $method ( @{$methods} ) {
-        if ( $method =~ /^$name\_(.+)$/ ) {
-            push( @allowed, $1 );
-        }
-    }
-    return @allowed;
+    my $methods = Class::Inspector->methods($class);
+    return map { /^$name\_(.+)$/ } @$methods;
 };
 
 sub _return_options {
@@ -185,8 +172,8 @@ one of the accepted return formats.  You can do this by setting it in your query
 accepted return formats.  You can do this by setting it in your query string
 thusly: C<< ?content-type=application%2Fjson (where %2F == / uri escaped). >>
 
-B<NOTE> Apache will refuse %2F unless configured otherise.
-Make sure C<< AllowEncodedSlashes On >> is in your httpd.conf file in orde
+B<NOTE> Apache will refuse %2F unless configured otherwise.
+Make sure C<AllowEncodedSlashes On> is in your httpd.conf file in order
 for this to run smoothly.
 
 =back

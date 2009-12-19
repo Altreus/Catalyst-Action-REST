@@ -1,9 +1,9 @@
 package Test::Serialize::Controller::REST;
 
-use warnings;
-use strict;
+use namespace::autoclean;
+use Moose;
 
-use base qw/Catalyst::Controller::REST/;
+BEGIN { extends qw/Catalyst::Controller::REST/ };
 
 __PACKAGE__->config(
     'namespace' => '',
@@ -25,6 +25,7 @@ __PACKAGE__->config(
         'text/x-php-serialization' =>
              [ 'Data::Serializer', 'PHP::Serialization' ],
         'text/view'   => [ 'View', 'Simple' ],
+        'text/explodingview' => [ 'View', 'Awful' ],
         'text/broken' => 'Broken',
     },
 );
@@ -32,7 +33,7 @@ __PACKAGE__->config(
 sub monkey_put : Local : ActionClass('Deserialize') {
     my ( $self, $c ) = @_;
     if ( ref($c->req->data) eq "HASH" ) {
-        my $out = $c->req->data->{'sushi'} . $c->req->data->{'chicken'}||'';
+        my $out = ($c->req->data->{'sushi'}||'') . ($c->req->data->{'chicken'}||'');
         utf8::encode($out);
         $c->res->output( $out );
     } else {

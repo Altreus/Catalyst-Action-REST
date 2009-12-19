@@ -1,16 +1,9 @@
-#
-# Catlyst::Action::Serialize::JSON.pm
-# Created by: Adam Jacob, Marchex, <adam@hjksolutions.com>
-# Created on: 10/12/2006 03:00:32 PM PDT
-#
-# $Id$
-
 package Catalyst::Action::Serialize::JSON;
 
-use strict;
-use warnings;
+use Moose;
+use namespace::autoclean;
 
-use base 'Catalyst::Action';
+extends 'Catalyst::Action';
 use JSON qw(encode_json);
 
 sub execute {
@@ -22,13 +15,7 @@ sub execute {
                 $controller->{'serialize'}->{'stash_key'} :
                 $controller->{'stash_key'} 
         ) || 'rest';
-    my $output;
-    eval {
-        $output = $self->serialize( $c->stash->{$stash_key} );
-    };
-    if ($@) {
-        return $@;
-    }
+    my $output = $self->serialize( $c->stash->{$stash_key} );
     $c->response->output( $output );
     return 1;
 }
