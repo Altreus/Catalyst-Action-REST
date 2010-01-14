@@ -1,6 +1,7 @@
 Changes
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
+inc/Module/Install/AuthorRequires.pm
 inc/Module/Install/AutoInstall.pm
 inc/Module/Install/Base.pm
 inc/Module/Install/Can.pm
@@ -22,6 +23,7 @@ lib/Catalyst/Action/Serialize.pm
 lib/Catalyst/Action/Serialize/Data/Serializer.pm
 lib/Catalyst/Action/Serialize/JSON.pm
 lib/Catalyst/Action/Serialize/JSON/XS.pm
+lib/Catalyst/Action/Serialize/JSONP.pm
 lib/Catalyst/Action/Serialize/View.pm
 lib/Catalyst/Action/Serialize/XML/Simple.pm
 lib/Catalyst/Action/Serialize/YAML.pm
@@ -47,6 +49,7 @@ t/catalyst-request-rest.t
 t/data-serializer.t
 t/isa.t
 t/json.t
+t/jsonp.t
 t/lib/Test/Action/Class.pm
 t/lib/Test/Catalyst/Action/REST.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Actions.pm

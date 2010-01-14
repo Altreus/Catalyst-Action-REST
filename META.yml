@@ -33,5 +33,5 @@ requires:
   perl: 5.8.1
 resources:
   license: http://dev.perl.org/licenses/
-  repository: http://github.com/bobtfish/catalyst-action-rest
-version: 0.80
+  repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
+version: 0.81
