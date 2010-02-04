@@ -7,6 +7,9 @@ use namespace::autoclean;
 extends 'Catalyst::Request';
 with 'Catalyst::TraitFor::Request::REST';
 
+our $VERSION = '0.82';
+$VERSION = eval $VERSION;
+
 # Please don't take this as a recommended way to do things.
 # The code below is grotty, badly factored and mostly here for back
 # compat..
@@ -21,18 +24,13 @@ sub _insert_self_into {
   return if $req_class->isa($class);
   my $req_class_meta = Moose->init_meta( for_class => $req_class );
   return if $req_class_meta->does_role('Catalyst::TraitFor::Request::REST');
-  if ($req_class eq 'Catalyst::Request') {
-    $app->request_class($class);
-  }
-  else {
-      my $meta = Moose::Meta::Class->create_anon_class(
-          superclasses => [$req_class],
-          roles => ['Catalyst::TraitFor::Request::REST'],
-          cache => 1
-      );
-      $meta->add_method(meta => sub { $meta });
-      $app->request_class($meta->name);
-  }
+  my $meta = Moose::Meta::Class->create_anon_class(
+      superclasses => [$req_class],
+      roles => ['Catalyst::TraitFor::Request::REST'],
+      cache => 1
+  );
+  $meta->add_method(meta => sub { $meta });
+  $app->request_class($meta->name);
 }
 
 __PACKAGE__->meta->make_immutable;
@@ -53,11 +51,12 @@ Catalyst::Request::REST - A REST-y subclass of Catalyst::Request
 =head1 DESCRIPTION
 
 This is a subclass of C<Catalyst::Request> that applies the
-L<Catalyst::TraitFor::Request::REST> which adds a few methods to
-the request object to faciliate writing REST-y code.
+L<Catalyst::TraitFor::Request::REST> role to your request class. That trait
+adds a few methods to the request object to facilitate writing REST-y code.
 
-This class is only here for backwards compatibility with applications
-already subclassing this class.
+This class is only here for backwards compatibility with applications already
+subclassing this class. New code should use
+L<Catalyst::TraitFor::Request::REST> directly.
 
 L<Catalyst::Action::REST> and L<Catalyst::Controller::REST> will arrange
 for the request trait to be applied if needed.

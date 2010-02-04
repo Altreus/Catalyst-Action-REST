@@ -10,7 +10,7 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.81';
+our $VERSION = '0.82';
 $VERSION = eval $VERSION;
 
 sub new {
@@ -67,8 +67,8 @@ It is likely that you really want to look at L<Catalyst::Controller::REST>,
 which brings this class together with automatic Serialization of requests
 and responses.
 
-When you use this module, the request class will be changed to
-L<Catalyst::Request::REST>.
+When you use this module, it adds the L<Catalyst::TraitFor::Request::REST>
+role to your request class.
 
 =head1 METHODS
 
@@ -156,8 +156,13 @@ sub _return_not_implemented {
 
 =head1 SEE ALSO
 
-You likely want to look at L<Catalyst::Controller::REST>, which implements
-a sensible set of defaults for a controller doing REST.
+You likely want to look at L<Catalyst::Controller::REST>, which implements a
+sensible set of defaults for a controller doing REST.
+
+This class automatically adds the L<Catalyst::TraitFor::Request::REST> role to
+your request class.  If you're writing a webapp which provides RESTful
+responses and still needs to accommodate web browsers, you may prefer to use
+L<Catalyst::TraitFor::Request::REST::ForBrowsers> instead.
 
 L<Catalyst::Action::Serialize>, L<Catalyst::Action::Deserialize>
 
@@ -180,27 +185,29 @@ for this to run smoothly.
 
 =head1 AUTHOR
 
-Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway
+Adam Jacob E<lt>adam@stalecoffee.orgE<gt>, with lots of help from mst and jrockway
 
 Marchex, Inc. paid me while I developed this module. (L<http://www.marchex.com>)
 
 =head1 CONTRIBUTORS
 
-Arthur Axel "fREW" Schmidt <frioux@gmail.com>
-
-Christopher Laco
-
-Luke Saunders
+Tomas Doran (t0m) E<lt>bobtfish@bobtfish.netE<gt>
 
 John Goulah
 
-Daisuke Maki <daisuke@endeworks.jp>
+Christopher Laco
 
-J. Shirley <jshirley@gmail.com>
+Daisuke Maki E<lt>daisuke@endeworks.jpE<gt>
 
 Hans Dieter Pearcey
 
-Tomas Doran (t0m) <bobtfish@bobtfish.net>
+Dave Rolsky E<lt>autarch@urth.orgE<gt>
+
+Luke Saunders
+
+Arthur Axel "fREW" Schmidt E<lt>frioux@gmail.comE<gt>
+
+J. Shirley E<lt>jshirley@gmail.comE<gt>
 
 =head1 COPYRIGHT
 

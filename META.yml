@@ -18,6 +18,7 @@ no_index:
   directory:
     - inc
     - t
+    - xt
 requires:
   Catalyst::Runtime: 5.80
   Class::Inspector: 1.13
@@ -34,4 +35,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: 0.81
+version: 0.82

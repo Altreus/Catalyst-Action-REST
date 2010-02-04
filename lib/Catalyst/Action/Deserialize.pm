@@ -7,7 +7,10 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
-__PACKAGE__->mk_accessors(qw(plugins));
+our $VERSION = '0.82';
+$VERSION = eval $VERSION;
+
+has plugins => ( is => 'rw' );
 
 sub execute {
     my $self = shift;
@@ -37,6 +40,8 @@ sub execute {
 
     return 1;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
@@ -98,5 +103,3 @@ See L<Catalyst::Action::REST> for authors.
 You may distribute this code under the same terms as Perl itself.
 
 =cut
-
-1;

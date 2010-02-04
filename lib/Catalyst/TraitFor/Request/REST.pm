@@ -3,12 +3,29 @@ use Moose::Role;
 use HTTP::Headers::Util qw(split_header_words);
 use namespace::autoclean;
 
+our $VERSION = '0.82';
+$VERSION = eval $VERSION;
+
 has [qw/ data accept_only /] => ( is => 'rw' );
 
-sub accepted_content_types {
-    my $self = shift;
+has accepted_content_types => (
+    is       => 'ro',
+    isa      => 'ArrayRef',
+    lazy     => 1,
+    builder  => '_build_accepted_content_types',
+    init_arg => undef,
+);
 
-    return $self->{content_types} if $self->{content_types};
+has preferred_content_type => (
+    is       => 'ro',
+    isa      => 'Str',
+    lazy     => 1,
+    builder  => '_build_preferred_content_type',
+    init_arg => undef,
+);
+
+sub _build_accepted_content_types {
+    my $self = shift;
 
     my %types;
 
@@ -49,11 +66,10 @@ sub accepted_content_types {
         }
     }
 
-    return $self->{content_types} =
-        [ sort { $types{$b} <=> $types{$a} } keys %types ];
+    [ sort { $types{$b} <=> $types{$a} } keys %types ];
 }
 
-sub preferred_content_type { $_[0]->accepted_content_types->[0] }
+sub _build_preferred_content_type { $_[0]->accepted_content_types->[0] }
 
 sub accepts {
     my $self = shift;
@@ -80,7 +96,7 @@ Catalyst::TraitFor::Request::REST - A role to apply to Catalyst::Request giving 
 =head1 DESCRIPTION
 
 This is a L<Moose::Role> applied to L<Catalyst::Request> that adds a few
-methods to the request object to faciliate writing REST-y code.
+methods to the request object to facilitate writing REST-y code.
 Currently, these methods are all related to the content types accepted by
 the client.
 

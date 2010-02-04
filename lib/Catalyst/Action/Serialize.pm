@@ -7,6 +7,15 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
+our $VERSION = '0.82';
+$VERSION = eval $VERSION;
+
+has _encoders => (
+   is => 'ro',
+   isa => 'HashRef',
+   default => sub { {} },
+);
+
 sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
@@ -33,12 +42,15 @@ sub execute {
     $c->log->debug(
         "Serializing with $sclass" . ( $sarg ? " [$sarg]" : '' ) ) if $c->debug;
 
+    $self->_encoders->{$sclass} ||= $sclass->new;
+    my $sobj = $self->_encoders->{$sclass};
+
     my $rc;
     eval {
         if ( defined($sarg) ) {
-            $rc = $sclass->execute( $controller, $c, $sarg );
+            $rc = $sobj->execute( $controller, $c, $sarg );
         } else {
-            $rc = $sclass->execute( $controller, $c );
+            $rc = $sobj->execute( $controller, $c );
         }
     };
     if ($@) {
@@ -50,7 +62,7 @@ sub execute {
     return 1;
 }
 
-1;
+__PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
@@ -104,7 +116,7 @@ Takes a hashref, mapping Content-Types to a given serializer plugin.
 This is the 'fall-back' Content-Type if none of the requested or acceptable
 types is found in the L</map>. It must be an entry in the L</map>.
 
-=head2 stash_key 
+=head2 stash_key
 
 Specifies the key of the stash entry holding the data that is to be serialized.
 So if the value is "rest", we will serialize the data under:
@@ -124,7 +136,7 @@ perhaps for debugging.
 
 Daisuke Maki pointed out that early versions of this Action did not play
 well with others, or generally behave in a way that was very consistent
-with the rest of Catalyst. 
+with the rest of Catalyst.
 
 =head1 SEE ALSO
 
