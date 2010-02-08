@@ -48,7 +48,6 @@ t/catalyst-action-serialize-accept.t
 t/catalyst-action-serialize-query.t
 t/catalyst-action-serialize.t
 t/catalyst-controller-rest.t
-t/catalyst-request-rest.t
 t/catalyst-traitfor-request-rest-forbrowsers.t
 t/catalyst-traitfor-request-rest.t
 t/data-serializer.t
@@ -59,6 +58,7 @@ t/lib/Test/Action/Class.pm
 t/lib/Test/Catalyst/Action/REST.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Actions.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Deserialize.pm
+t/lib/Test/Catalyst/Action/REST/Controller/Override.pm
 t/lib/Test/Catalyst/Action/REST/Controller/REST.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Root.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Serialize.pm
@@ -68,7 +68,6 @@ t/lib/Test/Serialize.pm
 t/lib/Test/Serialize/Controller/REST.pm
 t/lib/Test/Serialize/View/Awful.pm
 t/lib/Test/Serialize/View/Simple.pm
-t/pod.t
 t/view.t
 t/xml-simple.t
 t/yaml-html.t
