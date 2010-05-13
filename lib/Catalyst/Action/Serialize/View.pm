@@ -4,12 +4,16 @@ use namespace::autoclean;
 
 extends 'Catalyst::Action';
 
-our $VERSION = '0.84';
+our $VERSION = '0.85';
 $VERSION = eval $VERSION;
 
 sub execute {
     my $self = shift;
     my ( $controller, $c, $view ) = @_;
+
+    # Views don't care / are not going to render an entity for 3XX
+    # responses.
+    return 1 if $c->response->status =~ /^(?:204|3\d\d)$/;
 
     my $stash_key = (
             $controller->{'serialize'} ?

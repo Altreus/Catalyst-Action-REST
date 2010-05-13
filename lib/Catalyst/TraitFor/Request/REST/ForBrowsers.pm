@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 with 'Catalyst::TraitFor::Request::REST';
 
-our $VERSION = '0.84';
+our $VERSION = '0.85';
 $VERSION = eval $VERSION;
 
 has _determined_real_method => (
@@ -94,10 +94,17 @@ Catalyst::TraitFor::Request::REST::ForBrowsers - A request trait for REST and br
 =head1 SYNOPSIS
 
     package MyApp;
+    use Moose;
+    use namespace::autoclean;
 
-    use Catalyst::TraitFor::Request::REST::ForBrowsers;
+    use Catalyst;
+    use CatalystX::RoleApplicator;
 
+    extends 'Catalyst';
 
+    __PACKAGE__->apply_request_class_roles(qw[
+        Catalyst::TraitFor::Request::REST::ForBrowsers
+    ]);
 
 =head1 DESCRIPTION
 
