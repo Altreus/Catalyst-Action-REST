@@ -26,10 +26,11 @@ requires:
   Data::Taxi: 0
   FreezeThaw: 0
   JSON: 2.12
+  JSON::XS: 2.2222
   LWP::UserAgent: 2.033
   MRO::Compat: 0.10
   Module::Pluggable::Object: 0
-  Moose: 0
+  Moose: 1.03
   PHP::Serialization: 0
   Params::Validate: 0.76
   URI::Find: 0
@@ -40,4 +41,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: 0.86
+version: 0.87

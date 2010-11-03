@@ -7,7 +7,7 @@ use namespace::autoclean;
 extends 'Catalyst::Request';
 with 'Catalyst::TraitFor::Request::REST';
 
-our $VERSION = '0.86';
+our $VERSION = '0.87';
 $VERSION = eval $VERSION;
 
 # Please don't take this as a recommended way to do things.
@@ -33,7 +33,7 @@ sub _insert_self_into {
           roles => ['Catalyst::TraitFor::Request::REST'],
           cache => 1
       );
-      $meta->add_method(meta => sub { $meta });
+      $meta->_add_meta_method('meta');
       $app->request_class($meta->name);
   }
 }
