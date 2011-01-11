@@ -19,7 +19,7 @@ no_index:
     - t
     - xt
 requires:
-  Catalyst::Runtime: 5.80
+  Catalyst::Runtime: 5.80030
   Class::Inspector: 1.13
   Config::General: 0
   Data::Serializer: 0.36
@@ -41,4 +41,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: 0.87
+version: 0.88

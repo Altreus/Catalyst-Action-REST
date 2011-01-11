@@ -11,7 +11,7 @@ all_from 'lib/Catalyst/Action/REST.pm';
 
 requires 'Moose' => '1.03';
 requires 'namespace::autoclean';
-requires('Catalyst::Runtime'         => '5.80');
+requires('Catalyst::Runtime'         => '5.80030');
 requires('Params::Validate'          => '0.76');
 requires('YAML::Syck'                => '0.67');
 requires('Module::Pluggable::Object' => undef);
@@ -38,7 +38,7 @@ feature 'JSON (application/json) support',
 author_requires 'JSON'     => '2.12';
 author_requires 'JSON::XS' => '2.2222';
 
-feature 'Data::Taxi (text/x-data-taxi) support',
+feature 'Data::Taxi (text/x-data-taxi) support (deprecated)',
     -default => 0,
     'Data::Taxi' => undef;
 

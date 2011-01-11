@@ -7,7 +7,7 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
-our $VERSION = '0.87';
+our $VERSION = '0.88';
 $VERSION = eval $VERSION;
 
 has _encoders => (
@@ -23,7 +23,7 @@ sub execute {
     $self->maybe::next::method(@_);
 
     return 1 if $c->req->method eq 'HEAD';
-    return 1 if length( $c->response->body );
+    return 1 if $c->response->has_body;
     return 1 if scalar @{ $c->error };
     return 1 if $c->response->status =~ /^(?:204)$/;
 
