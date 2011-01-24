@@ -7,7 +7,7 @@ use namespace::autoclean;
 extends 'Catalyst::Request';
 with 'Catalyst::TraitFor::Request::REST';
 
-our $VERSION = '0.88';
+our $VERSION = '0.89';
 $VERSION = eval $VERSION;
 
 # Please don't take this as a recommended way to do things.
@@ -23,14 +23,15 @@ sub _insert_self_into {
   my $req_class = $app->request_class;
   return if $req_class->isa($class);
   my $req_class_meta = Moose->init_meta( for_class => $req_class );
-  return if $req_class_meta->does_role('Catalyst::TraitFor::Request::REST');
+  my $role = $class->_related_role;
+  return if $req_class_meta->does_role($role);
   if ($req_class eq 'Catalyst::Request') {
     $app->request_class($class);
   }
   else {
       my $meta = Moose::Meta::Class->create_anon_class(
           superclasses => [$req_class],
-          roles => ['Catalyst::TraitFor::Request::REST'],
+          roles => [$role],
           cache => 1
       );
       $meta->_add_meta_method('meta');
@@ -38,7 +39,12 @@ sub _insert_self_into {
   }
 }
 
+sub _related_role { 'Catalyst::TraitFor::Request::REST' }
+
 __PACKAGE__->meta->make_immutable;
+
+1;
+
 __END__
 
 =head1 NAME

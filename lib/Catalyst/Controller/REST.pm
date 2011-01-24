@@ -2,7 +2,7 @@ package Catalyst::Controller::REST;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.88';
+our $VERSION = '0.89';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -622,5 +622,7 @@ See L<Catalyst::Action::REST> for authors.
 You may distribute this code under the same terms as Perl itself.
 
 =cut
+
+__PACKAGE__->meta->make_immutable;
 
 1;

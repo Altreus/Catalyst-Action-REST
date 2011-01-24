@@ -7,7 +7,7 @@ extends 'Catalyst::Action';
 use YAML::Syck;
 use URI::Find;
 
-our $VERSION = '0.88';
+our $VERSION = '0.89';
 $VERSION = eval $VERSION;
 
 sub execute {
@@ -44,5 +44,7 @@ sub execute {
     $c->response->output( $output );
     return 1;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;

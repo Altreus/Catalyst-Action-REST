@@ -6,7 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action';
 use YAML::Syck;
 
-our $VERSION = '0.88';
+our $VERSION = '0.89';
 $VERSION = eval $VERSION;
 
 sub execute {
@@ -28,5 +28,7 @@ sub serialize {
     my $data = shift;
     Dump($data);
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;

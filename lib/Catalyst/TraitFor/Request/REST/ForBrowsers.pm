@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 with 'Catalyst::TraitFor::Request::REST';
 
-our $VERSION = '0.88';
+our $VERSION = '0.89';
 $VERSION = eval $VERSION;
 
 has _determined_real_method => (
@@ -175,7 +175,8 @@ If the client provides an Accept header and accepts either "text/html" or
 
 =item *
 
-If it provides an Accept header of any sort, it is I<not> a browser.
+If it provides an Accept header of any sort that doesn't match one of the
+above criteria, it is I<not> a browser.
 
 =item *
 

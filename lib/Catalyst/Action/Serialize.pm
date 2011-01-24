@@ -7,7 +7,7 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
-our $VERSION = '0.88';
+our $VERSION = '0.89';
 $VERSION = eval $VERSION;
 
 has _encoders => (
@@ -63,6 +63,8 @@ sub execute {
 }
 
 __PACKAGE__->meta->make_immutable;
+
+1;
 
 =head1 NAME
 

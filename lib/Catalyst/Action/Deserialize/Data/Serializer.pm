@@ -9,7 +9,7 @@ use Safe;
 my $compartment = Safe->new;
 $compartment->permit_only( qw(padany null lineseq const pushmark list anonhash anonlist refgen leaveeval undef) );
 
-our $VERSION = '0.88';
+our $VERSION = '0.89';
 $VERSION = eval $VERSION;
 
 sub execute {
@@ -60,5 +60,7 @@ sub execute {
     }
     return 1;
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;

@@ -20,6 +20,7 @@ lib/Catalyst/Action/Deserialize/View.pm
 lib/Catalyst/Action/Deserialize/XML/Simple.pm
 lib/Catalyst/Action/Deserialize/YAML.pm
 lib/Catalyst/Action/REST.pm
+lib/Catalyst/Action/REST/ForBrowsers.pm
 lib/Catalyst/Action/Serialize.pm
 lib/Catalyst/Action/Serialize/Data/Serializer.pm
 lib/Catalyst/Action/Serialize/JSON.pm
@@ -42,6 +43,7 @@ README
 t/broken/Catalyst/Action/Deserialize/Broken.pm
 t/broken/Catalyst/Action/Serialize/Broken.pm
 t/catalyst-action-deserialize.t
+t/catalyst-action-rest-action-dispatch-for-browsers.t
 t/catalyst-action-rest-action-dispatch.t
 t/catalyst-action-rest.t
 t/catalyst-action-serialize-accept.t
@@ -58,6 +60,7 @@ t/lib/Test/Action/Class.pm
 t/lib/Test/Action/Class/Sub.pm
 t/lib/Test/Catalyst/Action/REST.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Actions.pm
+t/lib/Test/Catalyst/Action/REST/Controller/ActionsForBrowsers.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Deserialize.pm
 t/lib/Test/Catalyst/Action/REST/Controller/Override.pm
 t/lib/Test/Catalyst/Action/REST/Controller/REST.pm

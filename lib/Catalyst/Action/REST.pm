@@ -10,14 +10,14 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.88';
+our $VERSION = '0.89';
 $VERSION = eval $VERSION;
 
-sub new {
-  my $class  = shift;
-  my $config = shift;
-  Catalyst::Request::REST->_insert_self_into( $config->{class} );
-  return $class->next::method($config, @_);
+sub BUILDARGS {
+    my $class  = shift;
+    my $config = shift;
+    Catalyst::Request::REST->_insert_self_into( $config->{class} );
+    return $class->SUPER::BUILDARGS($config, @_);
 }
 
 =head1 NAME
@@ -85,8 +85,17 @@ sub dispatch {
     my $self = shift;
     my $c    = shift;
 
-    my $controller = $c->component( $self->class );
     my $rest_method = $self->name . "_" . uc( $c->request->method );
+
+    return $self->_dispatch_rest_method( $c, $rest_method );
+}
+
+sub _dispatch_rest_method {
+    my $self        = shift;
+    my $c           = shift;
+    my $rest_method = shift;
+
+    my $controller = $c->component( $self->class );
 
     my ($code, $name);
 
@@ -94,25 +103,26 @@ sub dispatch {
     if ( $code = $controller->action_for($rest_method) ) {
         $c->execute( $self->class, $self, @{ $c->req->args } ); # Execute normal 'foo' action.
         return $c->forward( $code,  $c->req->args ); # Forward to foo_GET if it's an action
-     }
-     elsif ($code = $controller->can($rest_method)) {
-        # Exceute normal action
+    }
+    elsif ($code = $controller->can($rest_method)) {
+        # Execute normal action
         $c->execute( $self->class, $self, @{ $c->req->args } );
         $name = $rest_method; # Stash name and code to run 'foo_GET' like an action below.
     }
 
     # Generic handling for foo_OPTIONS
-    if (!$code && $c->request->method eq "OPTIONS") {
-        $name = $rest_method;
-        $code = sub { $self->_return_options($self->name, @_) };
-    }
-
-    # Otherwise, not implemented.
     if (!$code) {
-        $name = $self->name . "_not_implemented";
-        $code = $controller->can($name) # User method
-            # Generic not implemented
-            || sub { $self->_return_not_implemented($self->name, @_) };
+        if ( $c->request->method eq "OPTIONS") {
+            $name = $rest_method;
+            $code = sub { $self->_return_options($self->name, @_) };
+        }
+        else {
+            # Otherwise, not implemented.
+            $name = $self->name . "_not_implemented";
+            $code = $controller->can($name) # User method
+                # Generic not implemented
+                || sub { $self->_return_not_implemented($self->name, @_) };
+        }
     }
 
     # localise stuff so we can dispatch the action 'as normal, but get
@@ -150,6 +160,8 @@ sub _return_not_implemented {
           . " not implemented for "
           . $c->uri_for( $method_name ) );
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
 

@@ -6,7 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action';
 use JSON ();
 
-our $VERSION = '0.88';
+our $VERSION = '0.89';
 $VERSION = eval $VERSION;
 
 has encoder => (
@@ -38,5 +38,7 @@ sub serialize {
     my $data = shift;
     $self->encoder->encode( $data );
 }
+
+__PACKAGE__->meta->make_immutable;
 
 1;
