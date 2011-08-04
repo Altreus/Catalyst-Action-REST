@@ -2,7 +2,7 @@ package Catalyst::Controller::REST;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.90';
+our $VERSION = '0.91';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -36,7 +36,9 @@ Catalyst::Controller::REST - A RESTful controller
 
     # Answer PUT requests to "thing"
     sub thing_PUT {
-        $radiohead = $req->data->{radiohead};
+        my ( $self, $c ) = @_;
+
+        $radiohead = $c->req->data->{radiohead};
         
         $self->status_created(
             $c,
@@ -401,7 +403,7 @@ sub status_no_content {
     my $c    = shift;
     $c->response->status(204);
     $self->_set_entity( $c, undef );
-    return 1.;
+    return 1;
 }
 
 =item status_multiple_choices

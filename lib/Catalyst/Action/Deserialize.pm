@@ -6,19 +6,36 @@ use namespace::autoclean;
 extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
+use Moose::Util::TypeConstraints;
 
-our $VERSION = '0.90';
+our $VERSION = '0.91';
 $VERSION = eval $VERSION;
 
 has plugins => ( is => 'rw' );
+
+has deserialize_http_methods => (
+    traits  => ['Hash'],
+    isa     => do {
+        my $tc = subtype as 'HashRef[Str]';
+        coerce $tc, from 'ArrayRef[Str]',
+            via { +{ map { ($_ => 1) } @$_ } };
+        $tc;
+    },
+    coerce  => 1,
+    builder => '_build_deserialize_http_methods',
+    handles => {
+        deserialize_http_methods         => 'keys',
+        _deserialize_handles_http_method => 'exists',
+    },
+);
+
+sub _build_deserialize_http_methods { [qw(POST PUT OPTIONS DELETE)] }
 
 sub execute {
     my $self = shift;
     my ( $controller, $c ) = @_;
 
-    my @demethods = qw(POST PUT OPTIONS DELETE);
-    my $method    = $c->request->method;
-    if ( grep /^$method$/, @demethods ) {
+    if ( $self->_deserialize_handles_http_method($c->request->method) ) {
         my ( $sclass, $sarg, $content_type ) =
           $self->_load_content_plugins( 'Catalyst::Action::Deserialize',
             $controller, $c );
@@ -64,10 +81,26 @@ Catalyst::Action::Deserialize - Deserialize Data in a Request
 
 =head1 DESCRIPTION
 
-This action will deserialize HTTP POST, PUT, and OPTIONS requests.
+This action will deserialize HTTP POST, PUT, OPTIONS and DELETE requests.
 It assumes that the body of the HTTP Request is a serialized object.
 The serializer is selected by introspecting the requests content-type
 header.
+
+If you want deserialize any other HTTP method besides POST, PUT,
+OPTIONS and DELETE you can do this by setting the
+C<< deserialize_http_methods >> list via C<< action_args >>.
+Just modify the config in your controller and define a list of HTTP
+methods the deserialization should happen for:
+
+    __PACKAGE__->config(
+        action_args => {
+            '*' => {
+                deserialize_http_methods => [qw(POST PUT OPTIONS DELETE GET)]
+            }
+        }
+    );
+
+See also L<Catalyst::Controller/action_args>.
 
 The specifics of deserializing each content-type is implemented as
 a plugin to L<Catalyst::Action::Deserialize>.  You can see a list
