@@ -1,18 +1,17 @@
-package Catalyst::Action::Deserialize::JSON;
+package Catalyst::Action::Deserialize::Callback;
 
 use Moose;
 use namespace::autoclean;
 use Scalar::Util qw(openhandle);
 
 extends 'Catalyst::Action';
-use JSON;
 
 our $VERSION = '0.93';
 $VERSION = eval $VERSION;
 
 sub execute {
     my $self = shift;
-    my ( $controller, $c, $test ) = @_;
+    my ( $controller, $c, $callbacks ) = @_;
 
     my $rbody;
 
@@ -29,13 +28,7 @@ sub execute {
     }
 
     if ( $rbody ) {
-        my $json = JSON->new->utf8;
-        if (my $options = $controller->{json_options}) {
-            foreach my $opt (keys %$options) {
-                $json->$opt( $options->{$opt} );
-            }
-        }
-        my $rdata = eval { $json->decode( $rbody ) };
+        my $rdata = eval { $callbacks->{deserialize}->( $rbody, $controller, $c ) };
         if ($@) {
             return $@;
         }
@@ -51,3 +44,4 @@ sub execute {
 __PACKAGE__->meta->make_immutable;
 
 1;
+

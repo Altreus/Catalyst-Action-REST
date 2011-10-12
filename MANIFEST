@@ -14,6 +14,7 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 inc/Test/More.pm
 lib/Catalyst/Action/Deserialize.pm
+lib/Catalyst/Action/Deserialize/Callback.pm
 lib/Catalyst/Action/Deserialize/Data/Serializer.pm
 lib/Catalyst/Action/Deserialize/JSON.pm
 lib/Catalyst/Action/Deserialize/View.pm
@@ -23,6 +24,7 @@ lib/Catalyst/Action/DeserializeMultiPart.pm
 lib/Catalyst/Action/REST.pm
 lib/Catalyst/Action/REST/ForBrowsers.pm
 lib/Catalyst/Action/Serialize.pm
+lib/Catalyst/Action/Serialize/Callback.pm
 lib/Catalyst/Action/Serialize/Data/Serializer.pm
 lib/Catalyst/Action/Serialize/JSON.pm
 lib/Catalyst/Action/Serialize/JSON/XS.pm
@@ -43,6 +45,7 @@ META.yml
 README
 t/broken/Catalyst/Action/Deserialize/Broken.pm
 t/broken/Catalyst/Action/Serialize/Broken.pm
+t/callback.t
 t/catalyst-action-deserialize-multipart.t
 t/catalyst-action-deserialize.t
 t/catalyst-action-rest-action-dispatch-for-browsers.t

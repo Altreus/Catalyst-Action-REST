@@ -2,7 +2,7 @@ package Catalyst::Controller::REST;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.91';
+our $VERSION = '0.93';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -233,6 +233,25 @@ Your views should have a C<process> method like this:
 
       return $serialized;
   }
+
+=item * Callback
+
+For infinite flexibility, you can provide a callback for the
+deserialization/serialization steps.
+
+  __PACKAGE__->config(
+      map => {
+          'text/xml'  => [ 'Callback', { deserialize => \&parse_xml, serialize => \&render_xml } ],
+      }
+  );
+
+The C<deserialize> callback is passed a string that is the body of the
+request and is expected to return a scalar value that results from
+the deserialization.  The C<serialize> callback is passed the data
+structure that needs to be serialized and must return a string suitable
+for returning in the HTTP response.  In addition to receiving the scalar
+to act on, both callbacks are passed the controller object and the context
+(i.e. C<$c>) as the second and third arguments.
 
 =back
 
