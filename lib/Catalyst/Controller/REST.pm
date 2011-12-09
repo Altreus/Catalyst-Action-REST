@@ -2,7 +2,7 @@ package Catalyst::Controller::REST;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '0.93';
+our $VERSION = '0.94';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -455,6 +455,36 @@ sub status_multiple_choices {
     return 1;
 }
 
+=item status_found
+
+Returns a "302 FOUND" response. Takes an "entity" to serialize.
+Also takes optional "location" for preferred choice.
+
+=cut
+
+sub status_found {
+    my $self = shift;
+    my $c    = shift;
+    my %p    = Params::Validate::validate(
+        @_,
+        {
+            entity => 1,
+            location => { type     => SCALAR | OBJECT, optional => 1 },
+        },
+    );
+
+    my $location;
+    if ( ref( $p{'location'} ) ) {
+        $location = $p{'location'}->as_string;
+    } else {
+        $location = $p{'location'};
+    }
+    $c->response->status(302);
+    $c->response->header( 'Location' => $location ) if exists $p{'location'};
+    $self->_set_entity( $c, $p{'entity'} );
+    return 1;
+}
+
 =item status_bad_request
 
 Returns a "400 BAD REQUEST" response.  Takes a "message" argument
@@ -477,6 +507,32 @@ sub status_bad_request {
 
     $c->response->status(400);
     $c->log->debug( "Status Bad Request: " . $p{'message'} ) if $c->debug;
+    $self->_set_entity( $c, { error => $p{'message'} } );
+    return 1;
+}
+
+=item status_forbidden
+
+Returns a "403 FORBIDDEN" response.  Takes a "message" argument
+as a scalar, which will become the value of "error" in the serialized
+response.
+
+Example:
+
+  $self->status_forbidden(
+    $c,
+    message => "access denied",
+  );
+
+=cut
+
+sub status_forbidden {
+    my $self = shift;
+    my $c    = shift;
+    my %p    = Params::Validate::validate( @_, { message => { type => SCALAR }, }, );
+
+    $c->response->status(403);
+    $c->log->debug( "Status Forbidden: " . $p{'message'} ) if $c->debug;
     $self->_set_entity( $c, { error => $p{'message'} } );
     return 1;
 }

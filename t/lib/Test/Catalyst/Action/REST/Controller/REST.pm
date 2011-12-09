@@ -29,6 +29,15 @@ sub test_status_multiple_choices : Local {
     );
 }
 
+sub test_status_found : Local {
+    my ( $self, $c ) = @_;
+    $self->status_found(
+        $c,
+        location => '/rest',
+        entity   => { status => 'found' },
+    );
+}
+
 sub test_status_accepted : Local {
     my ( $self, $c ) = @_;
     $self->status_accepted( $c, entity => { status => "queued", } );
@@ -43,6 +52,12 @@ sub test_status_bad_request : Local {
     my ( $self, $c ) = @_;
     $self->status_bad_request( $c,
         message => "Cannot do what you have asked!", );
+}
+
+sub test_status_forbidden : Local {
+    my ( $self, $c ) = @_;
+    $self->status_forbidden ( $c,
+        message => "access denied", );
 }
 
 sub test_status_not_found : Local {
