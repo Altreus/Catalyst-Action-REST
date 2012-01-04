@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 extends 'Catalyst::Action::Serialize::JSON';
 
-our $VERSION = '0.94';
+our $VERSION = '0.95';
 $VERSION = eval $VERSION;
 
 after 'execute' => sub {
@@ -19,7 +19,7 @@ after 'execute' => sub {
 
   my $callback_value = $c->req->param($callback_key);
   if ($callback_value) {
-    if ($callback_value =~ /^\w+$/) {
+    if ($callback_value =~ /^[.\w]+$/) {
       $c->res->content_type('text/javascript');
       $c->res->output($callback_value.'('.$c->res->output().');');
     } else {

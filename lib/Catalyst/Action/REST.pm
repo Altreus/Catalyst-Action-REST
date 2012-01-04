@@ -10,7 +10,7 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '0.94';
+our $VERSION = '0.95';
 $VERSION = eval $VERSION;
 
 sub BUILDARGS {
@@ -224,9 +224,11 @@ Arthur Axel "fREW" Schmidt E<lt>frioux@gmail.comE<gt>
 
 J. Shirley E<lt>jshirley@gmail.comE<gt>
 
+Gavin Henry E<lt>ghenry@surevoip.co.ukE<gt>
+
 =head1 COPYRIGHT
 
-Copyright (c) 2006-2011 the above named AUTHOR and CONTRIBUTORS
+Copyright (c) 2006-2012 the above named AUTHOR and CONTRIBUTORS
 
 =head1 LICENSE
 
