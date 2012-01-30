@@ -25,6 +25,7 @@ requires:
   Data::Serializer: 0.36
   Data::Taxi: 0
   FreezeThaw: 0
+  HTML::Parser: 0
   JSON: 2.12
   JSON::XS: 2.2222
   LWP::UserAgent: 2.033
@@ -41,5 +42,5 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: 0.95
+version: 0.96
 x_authority: cpan:BOBTFISH
