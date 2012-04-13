@@ -4,6 +4,7 @@ author:
   - 'Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway'
 build_requires:
   ExtUtils::MakeMaker: 6.59
+  Test::More: 0.88
 configure_requires:
   ExtUtils::MakeMaker: 6.59
 distribution_type: module
@@ -43,5 +44,5 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: 0.99
+version: 1.00
 x_authority: cpan:BOBTFISH

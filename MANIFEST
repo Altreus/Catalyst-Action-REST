@@ -12,7 +12,6 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
-inc/Test/More.pm
 lib/Catalyst/Action/Deserialize.pm
 lib/Catalyst/Action/Deserialize/Callback.pm
 lib/Catalyst/Action/Deserialize/Data/Serializer.pm
