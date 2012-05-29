@@ -16,6 +16,7 @@ lib/Catalyst/Action/Deserialize.pm
 lib/Catalyst/Action/Deserialize/Callback.pm
 lib/Catalyst/Action/Deserialize/Data/Serializer.pm
 lib/Catalyst/Action/Deserialize/JSON.pm
+lib/Catalyst/Action/Deserialize/JSON/XS.pm
 lib/Catalyst/Action/Deserialize/View.pm
 lib/Catalyst/Action/Deserialize/XML/Simple.pm
 lib/Catalyst/Action/Deserialize/YAML.pm
