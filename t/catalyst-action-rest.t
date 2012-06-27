@@ -33,6 +33,11 @@ foreach my $method (qw(GET DELETE POST PUT OPTIONS)) {
     );
 }
 
+my $head_res = request( $t->head(url => '/test') );
+ok($head_res->is_success, 'HEAD request succeeded')
+    or diag($head_res->code);
+ok(!$head_res->content, 'HEAD request had proper response');
+
 my $fail_res = request( $t->delete( url => '/notreally' ) );
 is( $fail_res->code, 405, "Request to bad method gets 405 Not Implemented" );
 is( $fail_res->header('allow'), "GET", "405 allow header properly set." );
@@ -41,6 +46,23 @@ my $options_res = request( $t->options( url => '/notreally' ) );
 is( $options_res->code, 200, "OPTIONS request handler succeeded" );
 is( $options_res->header('allow'),
     "GET", "OPTIONS request allow header properly set." );
+
+my $opts_res = request( $t->options( url => '/rest/opts' ) );
+is( $opts_res->code, 200, "OPTIONS request handler succeeded" );
+is( $opts_res->header('allow'),
+    "GET", "OPTIONS request allow header properly set." );
+is($opts_res->content, q{}, 'should have no body');
+
+$opts_res = request(
+  $t->options(
+    url => '/rest/opts',
+    headers => { Accept => 'application/json' },
+  )
+);
+is( $opts_res->code, 200, "OPTIONS request handler succeeded" );
+is( $opts_res->header('allow'),
+    "GET", "OPTIONS request allow header properly set." );
+is($opts_res->content, q{}, 'should have no body');
 
 my $modified_res = request( $t->get( url => '/not_modified' ) );
 is( $modified_res->code, 304, "Not Modified request handler succeeded" );
