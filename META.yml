@@ -44,5 +44,5 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: 1.03
+version: 1.04
 x_authority: cpan:BOBTFISH
