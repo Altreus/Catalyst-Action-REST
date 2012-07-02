@@ -10,7 +10,7 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '1.04';
+our $VERSION = '1.05';
 $VERSION = eval $VERSION;
 
 sub BUILDARGS {
@@ -152,8 +152,13 @@ sub _dispatch_rest_method {
 sub get_allowed_methods {
     my ( $self, $controller, $c, $name ) = @_;
     my $class = ref($controller) ? ref($controller) : $controller;
-    my $methods = Class::Inspector->methods($class);
-    return map { /^$name\_(.+)$/ } @$methods;
+    my $methods = {
+      map { /^$name\_(.+)$/ ? ( $1 => 1 ) : () }
+        @{ Class::Inspector->methods($class) }
+    };
+    $methods->{'HEAD'} = 1 if $methods->{'GET'};
+    delete $methods->{'not_implemented'};
+    return keys %$methods;
 };
 
 sub _return_options {
