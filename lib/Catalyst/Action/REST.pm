@@ -10,7 +10,7 @@ use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
 
-our $VERSION = '1.05';
+our $VERSION = '1.06';
 $VERSION = eval $VERSION;
 
 sub BUILDARGS {
@@ -158,7 +158,7 @@ sub get_allowed_methods {
     };
     $methods->{'HEAD'} = 1 if $methods->{'GET'};
     delete $methods->{'not_implemented'};
-    return keys %$methods;
+    return sort keys %$methods;
 };
 
 sub _return_options {
