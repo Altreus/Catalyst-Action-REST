@@ -2,7 +2,7 @@ package Catalyst::Controller::REST;
 use Moose;
 use namespace::autoclean;
 
-our $VERSION = '1.06';
+our $VERSION = '1.07';
 $VERSION = eval $VERSION;
 
 =head1 NAME
@@ -175,14 +175,6 @@ Uses the L<Data::Serializer> module to generate L<Data::Denter> output.
 
 Uses the L<Data::Serializer> module to generate L<Data::Taxi> output.
 
-=item * C<application/x-storable> => C<Data::Serializer>
-
-Uses the L<Data::Serializer> module to generate L<Storable> output.
-
-=item * C<application/x-freezethaw> => C<Data::Serializer>
-
-Uses the L<Data::Serializer> module to generate L<FreezeThaw> output.
-
 =item * C<text/x-config-general> => C<Data::Serializer>
 
 Uses the L<Data::Serializer> module to generate L<Config::General> output.
@@ -307,8 +299,6 @@ __PACKAGE__->config(
         'text/x-data-dumper' => [ 'Data::Serializer', 'Data::Dumper' ],
         'text/x-data-denter' => [ 'Data::Serializer', 'Data::Denter' ],
         'text/x-data-taxi'   => [ 'Data::Serializer', 'Data::Taxi'   ],
-        'application/x-storable'   => [ 'Data::Serializer', 'Storable' ],
-        'application/x-freezethaw' => [ 'Data::Serializer', 'FreezeThaw' ],
         'text/x-config-general'    => [ 'Data::Serializer', 'Config::General' ],
         'text/x-php-serialization' => [ 'Data::Serializer', 'PHP::Serialization' ],
     },

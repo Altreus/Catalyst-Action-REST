@@ -7,7 +7,7 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 
-our $VERSION = '1.06';
+our $VERSION = '1.07';
 $VERSION = eval $VERSION;
 
 has _encoders => (
@@ -26,6 +26,8 @@ sub execute {
     return 1 if $c->response->has_body;
     return 1 if scalar @{ $c->error };
     return 1 if $c->response->status =~ /^(?:204)$/;
+    return 1 if defined $c->stash->{current_view};
+    return 1 if defined $c->stash->{current_view_instance};
 
     my ( $sclass, $sarg, $content_type ) =
       $self->_load_content_plugins( "Catalyst::Action::Serialize",
