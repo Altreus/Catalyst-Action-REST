@@ -24,7 +24,6 @@ requires:
   Catalyst::Runtime: 5.80030
   Class::Inspector: 1.13
   Config::General: 0
-  Data::Serializer: 0.36
   Data::Taxi: 0
   FreezeThaw: 0
   HTML::Parser: 0
@@ -44,5 +43,5 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: 1.07
+version: 1.08
 x_authority: cpan:BOBTFISH

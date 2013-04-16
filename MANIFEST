@@ -14,7 +14,6 @@ inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
 lib/Catalyst/Action/Deserialize.pm
 lib/Catalyst/Action/Deserialize/Callback.pm
-lib/Catalyst/Action/Deserialize/Data/Serializer.pm
 lib/Catalyst/Action/Deserialize/JSON.pm
 lib/Catalyst/Action/Deserialize/JSON/XS.pm
 lib/Catalyst/Action/Deserialize/View.pm
@@ -25,7 +24,6 @@ lib/Catalyst/Action/REST.pm
 lib/Catalyst/Action/REST/ForBrowsers.pm
 lib/Catalyst/Action/Serialize.pm
 lib/Catalyst/Action/Serialize/Callback.pm
-lib/Catalyst/Action/Serialize/Data/Serializer.pm
 lib/Catalyst/Action/Serialize/JSON.pm
 lib/Catalyst/Action/Serialize/JSON/XS.pm
 lib/Catalyst/Action/Serialize/JSONP.pm
@@ -57,7 +55,6 @@ t/catalyst-action-serialize.t
 t/catalyst-controller-rest.t
 t/catalyst-traitfor-request-rest-forbrowsers.t
 t/catalyst-traitfor-request-rest.t
-t/data-serializer.t
 t/isa.t
 t/json.t
 t/jsonp.t
