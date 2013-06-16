@@ -53,6 +53,8 @@ t/catalyst-action-serialize-accept.t
 t/catalyst-action-serialize-query.t
 t/catalyst-action-serialize.t
 t/catalyst-controller-rest.t
+t/catalyst-request-rest-custom-nonrest-request-class.t
+t/catalyst-request-rest-custom-rest-request-class.t
 t/catalyst-traitfor-request-rest-forbrowsers.t
 t/catalyst-traitfor-request-rest.t
 t/isa.t

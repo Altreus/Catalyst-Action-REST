@@ -12,13 +12,15 @@ use Catalyst::Log;
 
 my $anon_class = Moose::Meta::Class->create_anon_class(
     superclasses => ['Catalyst::Request'],
-    roles        => ['Catalyst::TraitFor::Request::REST::ForBrowsers'],
+    roles        => ['Catalyst::TraitFor::Request::REST'],
     cache        => 1,
 )->name;
 
+# We run the tests twice to make sure Catalyst::Request::REST is
+# 100% back-compatible.
 for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     {
-        my $request = Catalyst::Request::REST->new(
+        my $request = $class->new(
             _log => Catalyst::Log->new
         );
         $request->{_context} = 'MockContext';
@@ -37,7 +39,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( { 'content-type' => 'text/fudge' } );
@@ -55,7 +57,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( { 'content-type' => 'text/fudge' } );
@@ -66,7 +68,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
@@ -94,7 +96,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
@@ -119,7 +121,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
@@ -144,7 +146,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
@@ -162,7 +164,7 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
     }
 
     {
-        my $request = Catalyst::Request::REST->new( _log => Catalyst::Log->new );
+        my $request = $class->new( _log => Catalyst::Log->new );
         $request->{_context} = 'MockContext';
         $request->headers( HTTP::Headers->new );
         $request->parameters( {} );
@@ -178,36 +180,6 @@ for my $class ( $anon_class, 'Catalyst::Request::REST' ) {
                        ) ],
                    'each type appears only once' );
     }
-}
-
-{
-  local %ENV=%ENV;
-  $ENV{CATALYST_DEBUG} = 0;
-  my $test = 'Test::Catalyst::Action::REST';
-  use_ok $test;
-  ok($test->request_class->does('Catalyst::TraitFor::Request::REST'),
-    'Request does Catalyst::TraitFor::Request::REST');
-
-  my $meta = Moose::Meta::Class->create_anon_class(
-      superclasses => ['Catalyst::Request'],
-  );
-  $meta->add_method('__random_method' => sub { 42 });
-
-  $test->request_class($meta->name);
-  # FIXME - setup_finished(0) is evil!
-  eval { $test->setup_finished(0); $test->setup };
-  ok !$@, 'Can setup again';
-  isnt $test->request_class, $meta->name, 'Different request class';
-  ok $test->request_class->can('__random_method'), 'Is right class';
-  ok $test->request_class->can('data'), 'Also smells like REST subclass';
-
-  {
-    package My::Request;
-    use base 'Catalyst::Request::REST';
-  }
-  $test->request_class('My::Request');
-  eval { $test->setup_finished(0); $test->setup };
-  is $@, '', 'no error from Request::REST subclass';
 }
 
 done_testing;
