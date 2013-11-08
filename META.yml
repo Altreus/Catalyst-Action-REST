@@ -5,6 +5,7 @@ author:
 build_requires:
   ExtUtils::MakeMaker: 6.59
   Test::More: 0.88
+  Test::Requires: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.59
 distribution_type: module
@@ -43,5 +44,5 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: 1.12
+version: 1.13
 x_authority: cpan:BOBTFISH

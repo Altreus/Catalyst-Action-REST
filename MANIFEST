@@ -1,3 +1,4 @@
+.DS_Store
 Changes
 inc/Module/AutoInstall.pm
 inc/Module/Install.pm
@@ -12,7 +13,11 @@ inc/Module/Install/Makefile.pm
 inc/Module/Install/Metadata.pm
 inc/Module/Install/Win32.pm
 inc/Module/Install/WriteAll.pm
+lib/.DS_Store
+lib/Catalyst/.DS_Store
+lib/Catalyst/Action/.DS_Store
 lib/Catalyst/Action/Deserialize.pm
+lib/Catalyst/Action/Deserialize/.DS_Store
 lib/Catalyst/Action/Deserialize/Callback.pm
 lib/Catalyst/Action/Deserialize/JSON.pm
 lib/Catalyst/Action/Deserialize/JSON/XS.pm
@@ -23,6 +28,7 @@ lib/Catalyst/Action/DeserializeMultiPart.pm
 lib/Catalyst/Action/REST.pm
 lib/Catalyst/Action/REST/ForBrowsers.pm
 lib/Catalyst/Action/Serialize.pm
+lib/Catalyst/Action/Serialize/.DS_Store
 lib/Catalyst/Action/Serialize/Callback.pm
 lib/Catalyst/Action/Serialize/JSON.pm
 lib/Catalyst/Action/Serialize/JSON/XS.pm
@@ -33,8 +39,11 @@ lib/Catalyst/Action/Serialize/YAML.pm
 lib/Catalyst/Action/Serialize/YAML/HTML.pm
 lib/Catalyst/Action/SerializeBase.pm
 lib/Catalyst/Controller/REST.pm
+lib/Catalyst/Request/.DS_Store
 lib/Catalyst/Request/REST.pm
 lib/Catalyst/Request/REST/ForBrowsers.pm
+lib/Catalyst/TraitFor/.DS_Store
+lib/Catalyst/TraitFor/Request/.DS_Store
 lib/Catalyst/TraitFor/Request/REST.pm
 lib/Catalyst/TraitFor/Request/REST/ForBrowsers.pm
 Makefile.PL
