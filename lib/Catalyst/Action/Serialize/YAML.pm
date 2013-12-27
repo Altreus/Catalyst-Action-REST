@@ -6,8 +6,7 @@ use namespace::autoclean;
 extends 'Catalyst::Action';
 use YAML::Syck;
 
-our $VERSION = '1.13';
-$VERSION = eval $VERSION;
+our $VERSION = '1.14'; # VERSION
 
 sub execute {
     my $self = shift;

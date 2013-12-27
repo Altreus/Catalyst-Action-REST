@@ -1,88 +1,71 @@
+
 use strict;
 use warnings;
-use inc::Module::Install;
-use Module::Install::AuthorRequires;
-use Module::Install::AuthorTests;
 
-perl_version '5.8.1';
 
-name 'Catalyst-Action-REST';
-all_from 'lib/Catalyst/Action/REST.pm';
 
-requires 'Moose' => '1.03';
-requires 'namespace::autoclean';
-requires('Catalyst::Runtime'         => '5.80030');
-requires('Params::Validate'          => '0.76');
-requires('Module::Pluggable::Object' => undef);
-requires('LWP::UserAgent'            => '2.033');
-requires('Class::Inspector'          => '1.13');
-requires('URI::Find'                 => undef);
-requires('MRO::Compat'               => '0.10');
+use ExtUtils::MakeMaker 6.30;
 
-requires 'namespace::autoclean';
-test_requires 'Test::More' => '0.88';
-test_requires 'Test::Requires';
 
-author_requires 'Test::Pod' => 1.14;
-author_requires 'Module::Info';
-author_requires 'File::Find::Rule';
 
-author_tests 'xt/';
+my %WriteMakefileArgs = (
+  "ABSTRACT" => "Automated REST Method Dispatching",
+  "AUTHOR" => "Tomas Doran <bobtfish\@cpan.org>",
+  "BUILD_REQUIRES" => {},
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
+  },
+  "DISTNAME" => "Catalyst-Action-REST",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Catalyst::Action::REST",
+  "PREREQ_PM" => {
+    "Catalyst::Runtime" => "5.80030",
+    "Class::Inspector" => "1.13",
+    "LWP::UserAgent" => "2.033",
+    "MRO::Compat" => "0.10",
+    "Module::Pluggable::Object" => 0,
+    "Moose" => "1.03",
+    "Params::Validate" => "0.76",
+    "URI::Find" => 0,
+    "namespace::autoclean" => 0
+  },
+  "TEST_REQUIRES" => {
+    "Test::More" => "0.88",
+    "Test::Requires" => 0
+  },
+  "VERSION" => "1.14",
+  "test" => {
+    "TESTS" => "t/*.t"
+  }
+);
 
-feature 'JSON (application/json) support',
-    -default   => 0,
-    'JSON'     => '2.12',
-    'JSON::XS' => '2.2222';
 
-author_requires 'JSON'     => '2.12';
-author_requires 'JSON::XS' => '2.2222';
+my %FallbackPrereqs = (
+  "Catalyst::Runtime" => "5.80030",
+  "Class::Inspector" => "1.13",
+  "LWP::UserAgent" => "2.033",
+  "MRO::Compat" => "0.10",
+  "Module::Pluggable::Object" => 0,
+  "Moose" => "1.03",
+  "Params::Validate" => "0.76",
+  "Test::More" => "0.88",
+  "Test::Requires" => 0,
+  "URI::Find" => 0,
+  "namespace::autoclean" => 0
+);
 
-feature 'YAML:Syck (for YAML)',
-    -default => 0,
-    'YAML::Syck' => '0.67';
-author_requires 'YAML::Syck';
 
-feature 'HTML::Parser (for HTML input)',
-    -default => 0,
-    'HTML::Parser' => undef;
-author_requires 'HTML::Parser';
-
-feature 'Data::Taxi (text/x-data-taxi) support (deprecated)',
-    -default => 0,
-    'Data::Taxi' => undef;
-
-author_requires 'Data::Taxi';
-
-feature 'Config::General (text/x-config-general) support',
-    -default => 0,
-    'Config::General' => undef;
-author_requires 'Config::General';
-
-feature 'PHP::Serialization (text/x-php-serialization) support',
-    -default => 0,
-    'PHP::Serialization' => undef;
-author_requires 'PHP::Serialization';
-
-feature 'FreezeThaw (application/x-freezethaw) support',
-    -default => 0,
-    'FreezeThaw' => undef;
-author_requires 'FreezeThaw';
-
-feature 'XML::Simple (text/xml) support',
-    -default => 0,
-    'XML::Simple' => undef;
-author_requires 'XML::Simple';
-
-auto_install;
-
-if ($Module::Install::AUTHOR) {
-    system("pod2text lib/Catalyst/Action/REST.pm > README")
-        and die $!;
+unless ( eval { ExtUtils::MakeMaker->VERSION(6.63_03) } ) {
+  delete $WriteMakefileArgs{TEST_REQUIRES};
+  delete $WriteMakefileArgs{BUILD_REQUIRES};
+  $WriteMakefileArgs{PREREQ_PM} = \%FallbackPrereqs;
 }
 
-repository 'git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git';
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+  unless eval { ExtUtils::MakeMaker->VERSION(6.52) };
 
-add_metadata( x_authority => 'cpan:BOBTFISH' );
+WriteMakefile(%WriteMakefileArgs);
 
-WriteAll;
+
 

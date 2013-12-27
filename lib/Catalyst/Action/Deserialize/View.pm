@@ -5,8 +5,7 @@ use namespace::autoclean;
 
 extends 'Catalyst::Action';
 
-our $VERSION = '1.13';
-$VERSION = eval $VERSION;
+our $VERSION = '1.14'; # VERSION
 
 sub execute {
     return 1;

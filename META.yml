@@ -1,48 +1,31 @@
 ---
 abstract: 'Automated REST Method Dispatching'
 author:
-  - 'Adam Jacob <adam@stalecoffee.org>, with lots of help from mst and jrockway'
+  - 'Tomas Doran <bobtfish@cpan.org>'
 build_requires:
-  ExtUtils::MakeMaker: 6.59
   Test::More: 0.88
   Test::Requires: 0
 configure_requires:
-  ExtUtils::MakeMaker: 6.59
-distribution_type: module
-dynamic_config: 1
-generated_by: 'Module::Install version 1.06'
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.006, CPAN::Meta::Converter version 2.132830'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Catalyst-Action-REST
-no_index:
-  directory:
-    - inc
-    - t
-    - xt
 requires:
   Catalyst::Runtime: 5.80030
   Class::Inspector: 1.13
-  Config::General: 0
-  Data::Taxi: 0
-  FreezeThaw: 0
-  HTML::Parser: 0
-  JSON: 2.12
-  JSON::XS: 2.2222
   LWP::UserAgent: 2.033
   MRO::Compat: 0.10
   Module::Pluggable::Object: 0
   Moose: 1.03
-  PHP::Serialization: 0
   Params::Validate: 0.76
   URI::Find: 0
-  XML::Simple: 0
-  YAML::Syck: 0.67
   namespace::autoclean: 0
-  perl: 5.8.1
 resources:
-  license: http://dev.perl.org/licenses/
+  Authority: cpan:BOBTFISH
+  bugtracker: https://rt.cpan.org/Dist/Display.html?Name=Catalyst-Action-REST
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: 1.13
-x_authority: cpan:BOBTFISH
+version: 1.14
