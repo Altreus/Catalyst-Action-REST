@@ -7,7 +7,7 @@ extends 'Catalyst::Action';
 use YAML::Syck;
 use URI::Find;
 
-our $VERSION = '1.14'; # VERSION
+our $VERSION = '1.15'; # VERSION
 
 sub execute {
     my $self = shift;
