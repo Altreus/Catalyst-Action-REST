@@ -6,7 +6,7 @@ use Scalar::Util qw(openhandle);
 
 extends 'Catalyst::Action';
 
-our $VERSION = '1.15'; # VERSION
+our $VERSION = '1.16'; # VERSION
 
 sub execute {
     my $self = shift;

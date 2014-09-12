@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 extends 'Catalyst::Action';
 
-our $VERSION = '1.15'; # VERSION
+our $VERSION = '1.16'; # VERSION
 
 sub execute {
     my $self = shift;

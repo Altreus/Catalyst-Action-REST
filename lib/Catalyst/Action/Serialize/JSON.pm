@@ -4,9 +4,9 @@ use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
-use JSON ();
+use JSON::MaybeXS qw(JSON);
 
-our $VERSION = '1.15'; # VERSION
+our $VERSION = '1.16'; # VERSION
 
 has encoder => (
    is => 'ro',

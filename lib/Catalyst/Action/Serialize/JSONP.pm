@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 extends 'Catalyst::Action::Serialize::JSON';
 
-our $VERSION = '1.15'; # VERSION
+our $VERSION = '1.16'; # VERSION
 
 after 'execute' => sub {
   my $self = shift;
