@@ -1,9 +1,8 @@
 package Catalyst::Request::REST::ForBrowsers;
+$Catalyst::Request::REST::ForBrowsers::VERSION = '1.17';
 use Moose;
 
 use namespace::autoclean;
-
-our $VERSION = '1.16'; # VERSION
 
 extends 'Catalyst::Request::REST';
 with 'Catalyst::TraitFor::Request::REST::ForBrowsers';

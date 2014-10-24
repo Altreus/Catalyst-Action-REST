@@ -1,5 +1,5 @@
 package Catalyst::Action::REST;
-
+$Catalyst::Action::REST::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 
@@ -9,8 +9,6 @@ use Catalyst::Request::REST;
 use Catalyst::Controller::REST;
 
 BEGIN { require 5.008001; }
-
-our $VERSION = '1.16'; # VERSION
 
 sub BUILDARGS {
     my $class  = shift;

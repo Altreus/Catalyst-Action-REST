@@ -1,13 +1,11 @@
 package Catalyst::Action::Serialize;
-
+$Catalyst::Action::Serialize::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
-
-our $VERSION = '1.16'; # VERSION
 
 has _encoders => (
    is => 'ro',
@@ -27,6 +25,15 @@ sub execute {
     return 1 if $c->response->status =~ /^(?:204)$/;
     return 1 if defined $c->stash->{current_view};
     return 1 if defined $c->stash->{current_view_instance};
+
+    # on 3xx responses, serialize if there's something to
+    # serialize, no-op if not
+    my $stash_key = (
+       $controller->{'serialize'} ?
+           $controller->{'serialize'}->{'stash_key'} :
+                $controller->{'stash_key'}
+           ) || 'rest';
+    return 1 if $c->response->status =~ /^(?:3\d\d)$/ && ! defined $c->stash->{$stash_key};
 
     my ( $sclass, $sarg, $content_type ) =
       $self->_load_content_plugins( "Catalyst::Action::Serialize",

@@ -1,10 +1,9 @@
 package Catalyst::TraitFor::Request::REST::ForBrowsers;
+$Catalyst::TraitFor::Request::REST::ForBrowsers::VERSION = '1.17';
 use Moose::Role;
 use namespace::autoclean;
 
 with 'Catalyst::TraitFor::Request::REST';
-
-our $VERSION = '1.16'; # VERSION
 
 has _determined_real_method => (
     is  => 'rw',

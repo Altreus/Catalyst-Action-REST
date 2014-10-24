@@ -1,13 +1,11 @@
 package Catalyst::Action::Deserialize::JSON;
-
+$Catalyst::Action::Deserialize::JSON::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 use Scalar::Util qw(openhandle);
 
 extends 'Catalyst::Action';
 use JSON::MaybeXS qw(JSON);
-
-our $VERSION = '1.16'; # VERSION
 
 sub execute {
     my $self = shift;

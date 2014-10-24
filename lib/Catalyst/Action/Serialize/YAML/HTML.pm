@@ -1,13 +1,11 @@
 package Catalyst::Action::Serialize::YAML::HTML;
-
+$Catalyst::Action::Serialize::YAML::HTML::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
 use YAML::Syck;
 use URI::Find;
-
-our $VERSION = '1.16'; # VERSION
 
 sub execute {
     my $self = shift;

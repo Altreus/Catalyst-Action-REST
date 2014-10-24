@@ -1,11 +1,9 @@
 package Catalyst::Action::Serialize::XML::Simple;
-
+$Catalyst::Action::Serialize::XML::Simple::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
-
-our $VERSION = '1.16'; # VERSION
 
 sub execute {
     my $self = shift;

@@ -1,12 +1,10 @@
 package Catalyst::Action::Serialize::JSON;
-
+$Catalyst::Action::Serialize::JSON::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
 use JSON::MaybeXS qw(JSON);
-
-our $VERSION = '1.16'; # VERSION
 
 has encoder => (
    is => 'ro',

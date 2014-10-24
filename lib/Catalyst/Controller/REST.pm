@@ -1,8 +1,7 @@
 package Catalyst::Controller::REST;
+$Catalyst::Controller::REST::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
-
-our $VERSION = '1.16'; # VERSION
 
 =head1 NAME
 

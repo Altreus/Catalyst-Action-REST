@@ -1,12 +1,10 @@
 package Catalyst::Action::Deserialize::Callback;
-
+$Catalyst::Action::Deserialize::Callback::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 use Scalar::Util qw(openhandle);
 
 extends 'Catalyst::Action';
-
-our $VERSION = '1.16'; # VERSION
 
 sub execute {
     my $self = shift;

@@ -1,5 +1,5 @@
 package Catalyst::Action::Deserialize;
-
+$Catalyst::Action::Deserialize::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 
@@ -7,8 +7,6 @@ extends 'Catalyst::Action::SerializeBase';
 use Module::Pluggable::Object;
 use MRO::Compat;
 use Moose::Util::TypeConstraints;
-
-our $VERSION = '1.16'; # VERSION
 
 has plugins => ( is => 'rw' );
 

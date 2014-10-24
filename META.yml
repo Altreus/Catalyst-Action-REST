@@ -6,9 +6,9 @@ build_requires:
   Test::More: '0.88'
   Test::Requires: '0'
 configure_requires:
-  ExtUtils::MakeMaker: '6.30'
+  ExtUtils::MakeMaker: '0'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.019, CPAN::Meta::Converter version 2.140640'
+generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142060'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -28,4 +28,4 @@ resources:
   Authority: cpan:BOBTFISH
   bugtracker: https://rt.cpan.org/Dist/Display.html?Name=Catalyst-Action-REST
   repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: '1.16'
+version: '1.17'

@@ -1,10 +1,9 @@
 package Catalyst::Action::Serialize::JSONP;
+$Catalyst::Action::Serialize::JSONP::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action::Serialize::JSON';
-
-our $VERSION = '1.16'; # VERSION
 
 after 'execute' => sub {
   my $self = shift;

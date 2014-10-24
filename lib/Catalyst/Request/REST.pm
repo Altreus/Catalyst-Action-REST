@@ -1,4 +1,5 @@
 package Catalyst::Request::REST;
+$Catalyst::Request::REST::VERSION = '1.17';
 use Moose;
 
 use Catalyst::Utils;
@@ -6,8 +7,6 @@ use namespace::autoclean;
 
 extends 'Catalyst::Request';
 with 'Catalyst::TraitFor::Request::REST';
-
-our $VERSION = '1.16'; # VERSION
 
 # Please don't take this as a recommended way to do things.
 # The code below is grotty, badly factored and mostly here for back

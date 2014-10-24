@@ -1,12 +1,10 @@
 package Catalyst::Action::Serialize::YAML;
-
+$Catalyst::Action::Serialize::YAML::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
 use YAML::Syck;
-
-our $VERSION = '1.16'; # VERSION
 
 sub execute {
     my $self = shift;

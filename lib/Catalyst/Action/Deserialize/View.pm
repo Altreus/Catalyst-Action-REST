@@ -1,11 +1,9 @@
 package Catalyst::Action::Deserialize::View;
-
+$Catalyst::Action::Deserialize::View::VERSION = '1.17';
 use Moose;
 use namespace::autoclean;
 
 extends 'Catalyst::Action';
-
-our $VERSION = '1.16'; # VERSION
 
 sub execute {
     return 1;

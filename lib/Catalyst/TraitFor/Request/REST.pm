@@ -1,9 +1,8 @@
 package Catalyst::TraitFor::Request::REST;
+$Catalyst::TraitFor::Request::REST::VERSION = '1.17';
 use Moose::Role;
 use HTTP::Headers::Util qw(split_header_words);
 use namespace::autoclean;
-
-our $VERSION = '1.16'; # VERSION
 
 has [qw/ data accept_only /] => ( is => 'rw' );
 
