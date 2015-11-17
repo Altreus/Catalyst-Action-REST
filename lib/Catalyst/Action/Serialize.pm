@@ -34,6 +34,7 @@ sub execute {
                 $controller->{'stash_key'}
            ) || 'rest';
     return 1 if $c->response->status =~ /^(?:3\d\d)$/ && ! defined $c->stash->{$stash_key};
+    return 1 if ref $c->stash->{$stash_key} eq 'SCALAR' and not defined ${ $c->stash->{$stash_key} };
 
     my ( $sclass, $sarg, $content_type ) =
       $self->_load_content_plugins( "Catalyst::Action::Serialize",
