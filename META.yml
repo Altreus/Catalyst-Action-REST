@@ -3,12 +3,13 @@ abstract: 'Automated REST Method Dispatching'
 author:
   - 'Tomas Doran <bobtfish@cpan.org>'
 build_requires:
+  LWP::UserAgent: '5.00'
   Test::More: '0.88'
   Test::Requires: '0'
 configure_requires:
   ExtUtils::MakeMaker: '0'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142060'
+generated_by: 'Dist::Zilla version 5.041, CPAN::Meta::Converter version 2.150005'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -17,7 +18,7 @@ name: Catalyst-Action-REST
 requires:
   Catalyst::Runtime: '5.80030'
   Class::Inspector: '1.13'
-  LWP::UserAgent: '2.033'
+  JSON::MaybeXS: '0'
   MRO::Compat: '0.10'
   Module::Pluggable::Object: '0'
   Moose: '1.03'
@@ -27,5 +28,4 @@ requires:
 resources:
   Authority: cpan:BOBTFISH
   bugtracker: https://rt.cpan.org/Dist/Display.html?Name=Catalyst-Action-REST
-  repository: git://git.shadowcat.co.uk/catagits/Catalyst-Action-REST.git
-version: '1.17'
+version: '1.20'

@@ -1,5 +1,6 @@
 package Catalyst::Action::REST;
-$Catalyst::Action::REST::VERSION = '1.17';
+$Catalyst::Action::REST::VERSION = '1.20';
+use utf8;
 use Moose;
 use namespace::autoclean;
 
@@ -16,6 +17,8 @@ sub BUILDARGS {
     Catalyst::Request::REST->_insert_self_into( $config->{class} );
     return $class->SUPER::BUILDARGS($config, @_);
 }
+
+=encoding utf-8
 
 =head1 NAME
 
@@ -251,9 +254,11 @@ Colin Newell <colin@opusvl.com>
 
 Wallace Reis E<lt>wreis@cpan.orgE<gt>
 
+André Walker (andrewalker) <andre@cpan.org>
+
 =head1 COPYRIGHT
 
-Copyright (c) 2006-2012 the above named AUTHOR and CONTRIBUTORS
+Copyright (c) 2006-2015 the above named AUTHOR and CONTRIBUTORS
 
 =head1 LICENSE
 

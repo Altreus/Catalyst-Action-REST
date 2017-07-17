@@ -1,5 +1,5 @@
 package Catalyst::Request::REST::ForBrowsers;
-$Catalyst::Request::REST::ForBrowsers::VERSION = '1.17';
+$Catalyst::Request::REST::ForBrowsers::VERSION = '1.20';
 use Moose;
 
 use namespace::autoclean;
